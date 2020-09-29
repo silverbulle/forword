@@ -1,12 +1,19 @@
 <template>
-  <div class="home">
-    <el-container style="height: 500px; border: 1px solid #eee">
-      <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
-        <el-menu :default-openeds="['1']">
+  <div>
+    <el-row class="tac">
+      <el-col :span="20">
+        <h5>默认颜色</h5>
+        <el-menu
+          default-active="2"
+          class="el-menu-vertical-demo"
+          @open="handleOpen"
+          @close="handleClose"
+        >
           <el-submenu index="1">
-            <template slot="title"
-              ><i class="el-icon-message"></i>关键字维护</template
-            >
+            <template slot="title">
+              <i class="el-icon-location"></i>
+              <span>关键字维护</span>
+            </template>
             <el-menu-item-group>
               <template slot="title">分组一</template>
               <el-menu-item index="1-1" @click="gosen">敏感词维护</el-menu-item>
@@ -17,7 +24,7 @@
             </el-menu-item-group>
             <el-submenu index="1-4">
               <template slot="title">选项4</template>
-              <el-menu-item index="1-4-1">选项4-1</el-menu-item>
+              <el-menu-item index="1-4-1">选项1</el-menu-item>
             </el-submenu>
           </el-submenu>
           <el-menu-item index="2">
@@ -33,31 +40,36 @@
             <span slot="title">导航四</span>
           </el-menu-item>
         </el-menu>
-      </el-aside>
-
-      <el-main>
-        <Login></Login>
-      </el-main>
-    </el-container>
-    <!-- <HelloWorld msg="Welcome to Your Vue.js App" /> -->
+      </el-col>
+    </el-row>
   </div>
 </template>
 
 <script>
-import Login from "../components/Login";
-
 export default {
-  name: "Home",
-  components: {
-    Login,
-  },
+  name: "load",
   methods: {
-    gosen() {
-      this.$router.push("About");
+    handleOpen(key, keyPath) {
+      console.log(key, keyPath);
     },
-    filedetail() {
-      this.$router.push("filedetail");
+    handleClose(key, keyPath) {
+      console.log(key, keyPath);
     },
+    gosen(){
+      this.$router.push('About');
+    },
+    filedetail(){
+      this.$router.push('filedetail');
+    }
   },
 };
 </script>
+
+<style>
+.tac{
+    width: 10%;
+    left: 0%;
+    top: 0%;
+}
+
+</style>

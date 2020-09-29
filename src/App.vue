@@ -1,19 +1,43 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+
+    <router-view>
+    <!-- <Home></Home> -->
+    </router-view>
+    <!-- <load></load> -->
+
+    <!-- <Login></Login> -->
   </div>
 </template>
 
-<style lang="stylus">
-#app
-  font-family Avenir, Helvetica, Arial, sans-serif
-  -webkit-font-smoothing antialiased
-  -moz-osx-font-smoothing grayscale
-  text-align center
-  color #2c3e50
-  margin-top 60px
+<script>
+// import load from "./components/load";
+import Home from "./views/Home";
+
+export default {
+  name: "app",
+  components: {
+    // load,
+    Home,
+    // Login,
+  },
+};
+</script>
+
+<style>
+#app {
+  /* font-family: "Avenir", Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px; */
+
+  width: 100%;
+  height: 100%;
+  background-image: url("/assets/images/login-bg.jpg");
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
 </style>
