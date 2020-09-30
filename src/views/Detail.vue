@@ -113,15 +113,15 @@
 </template>
 
 <script>
-import load from "../views/Detail";
-import api from "../api";
+import load from '../views/Detail'
+import api from '../api'
 
 export default {
-  name: "Detail",
+  name: 'Detail',
   components: {
-    load,
+    load
   },
-  data() {
+  data () {
     return {
       tableData: [],
       multipleSelection: [],
@@ -132,11 +132,11 @@ export default {
       pageform: {
         page: 1,
         pageSize: 9,
-        word: "",
-        type: "0,1,2",
-        state: "0,1,2,3,4",
-      },
-    };
+        word: '',
+        type: '0,1,2',
+        state: '0,1,2,3,4'
+      }
+    }
 
     // const item = {
     //   date: "2016-05-02",
@@ -148,86 +148,85 @@ export default {
     // };
   },
   methods: {
-    gosen() {
-      this.$router.push("About");
+    gosen () {
+      this.$router.push('About')
     },
-    filedetail() {
-      this.$router.push("filedetail");
+    filedetail () {
+      this.$router.push('filedetail')
     },
-    handleClick(row) {
-      console.log(row);
+    handleClick (row) {
+      console.log(row)
     },
-    getfilelist(params) {
-      console.log("已进入请求函数中");
+    getfilelist (params) {
+      console.log('已进入请求函数中')
       api
         .getFilelist({
           page: this.pageform.page,
           pageSize: this.pageform.pageSize,
           word: this.pageform.word,
           type: this.pageform.type,
-          state: this.pageform.state,
+          state: this.pageform.state
         })
         .then((res) => {
-          console.log("已取得响应数据");
-          console.log(res.data);
+          console.log('已取得响应数据')
+          console.log(res.data)
           if (res.data.code == 200) {
-            console.log(res.data.data.list);
+            console.log(res.data.data.list)
             for (let i = 0; i < this.pageform.pageSize; i++) {
               if (res.data.data.list[i].fields != null) {
-                this.tableData.push(res.data.data.list[i].fields);
-              }else{
-                this.tableData.push([{filename:""}]);
+                this.tableData.push(res.data.data.list[i].fields)
+              } else {
+                this.tableData.push([{ filename: '' }])
                 console.log(this.tableData)
               }
             }
             // this.tableData = res.data.data.list;
-            this.total = res.data.data.total;
-            console.log(res.data.data.total);
+            this.total = res.data.data.total
+            console.log(res.data.data.total)
           }
         })
         .catch(function (error) {
-          console.log(error);
-        });
+          console.log(error)
+        })
     },
     current_change: function (currentPage) {
-      this.currentPage = currentPage;
-      console.log("已进入请求函数中");
+      this.currentPage = currentPage
+      console.log('分页效果已进入请求函数中')
       api
         .getFilelist({
           page: this.currentPage,
           pageSize: this.pageform.pageSize,
           word: this.pageform.word,
           type: this.pageform.type,
-          state: this.pageform.state,
+          state: this.pageform.state
         })
         .then((res) => {
-          console.log("已取得响应数据");
-          console.log(res.data);
+          console.log('分页效果已取得响应数据')
+          console.log(res.data)
           if (res.data.code == 200) {
-            console.log(res.data.data.list);
-            this.tableData = [];
+            console.log(res.data.data.list)
+            this.tableData = []
             for (let i = 0; i < res.data.data.list.length; i++) {
-              if(res.data.data.list[i].fields != null){
-              this.tableData.push(res.data.data.list[i].fields);                
-              }else{
-                this.tableData.push([{filename:""}])
+              if (res.data.data.list[i].fields != null) {
+                this.tableData.push(res.data.data.list[i].fields)
+              } else {
+                this.tableData.push([{ filename: '' }])
               }
-
             }
             // this.tableData = res.data.data.list;
-            this.total = res.data.data.total;
-            console.log(res.data.data.total);
+            this.total = res.data.data.total
+            console.log(res.data.data.total)
           }
         })
         .catch(function (error) {
-          console.log(error);
-        });
-    },
+          console.log(error)
+        })
+    }
   },
   mounted: function () {
-    this.getfilelist();
-  },
-};
+    this.getfilelist()
+  }
+}
 </script>
 
 <style type="text/css">
