@@ -4,7 +4,7 @@ import qs from 'query-string'
 
 const api = {
   getLogin (params) {
-    // console.log(params)
+    console.log(base.proxyUrl + base.Login + qs.stringify(params))
     return axios.post(base.proxyUrl + base.Login, qs.stringify(params))
   },
   getFilelist (params) {

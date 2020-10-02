@@ -28,7 +28,7 @@ const instance = axios.create({
 })
 
 // 全局配置
-instance.defaults.baseURL = 'http://39.105.91.30:6667'
+instance.defaults.baseURL = 'http://39.105.91.30:6669'
 // instance.defaults.headers.common ['Authorization'] = AUTH_TOKEN;
 instance.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
 

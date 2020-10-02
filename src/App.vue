@@ -1,12 +1,6 @@
 <template>
   <div id="app">
-
-    <router-view>
-    <!-- <Home></Home> -->
-    </router-view>
-    <!-- <load></load> -->
-
-    <!-- <Login></Login> -->
+    <router-view> </router-view>
   </div>
 </template>
 
@@ -40,4 +34,6 @@ export default {
   background-position: center;
   position: relative;
 }
+@import "./static/css/main.css";
+@import "./static/iconfont/iconfont.css";
 </style>
