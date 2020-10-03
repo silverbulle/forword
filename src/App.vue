@@ -6,16 +6,16 @@
 
 <script>
 // import load from "./components/load";
-import Home from "./views/Home";
+import Home from './views/Home'
 
 export default {
-  name: "app",
+  name: 'app',
   components: {
     // load,
-    Home,
+    Home
     // Login,
-  },
-};
+  }
+}
 </script>
 
 <style>

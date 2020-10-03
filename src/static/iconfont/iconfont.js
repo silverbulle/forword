@@ -1,5 +1,4 @@
-;(function(window) {
-
+;(function (window) {
   var svgSprite = '<svg>' +
     '' +
     '<symbol id="icon-erweima" viewBox="0 0 1024 1024">' +
@@ -35,42 +34,42 @@
     '</symbol>' +
     '' +
     '</svg>'
-  var script = function() {
+  var script = (function () {
     var scripts = document.getElementsByTagName('script')
     return scripts[scripts.length - 1]
-  }()
-  var shouldInjectCss = script.getAttribute("data-injectcss")
+  }())
+  var shouldInjectCss = script.getAttribute('data-injectcss')
 
   /**
    * document ready
    */
-  var ready = function(fn) {
+  var ready = function (fn) {
     if (document.addEventListener) {
-      if (~["complete", "loaded", "interactive"].indexOf(document.readyState)) {
+      if (~['complete', 'loaded', 'interactive'].indexOf(document.readyState)) {
         setTimeout(fn, 0)
       } else {
-        var loadFn = function() {
-          document.removeEventListener("DOMContentLoaded", loadFn, false)
+        var loadFn = function () {
+          document.removeEventListener('DOMContentLoaded', loadFn, false)
           fn()
         }
-        document.addEventListener("DOMContentLoaded", loadFn, false)
+        document.addEventListener('DOMContentLoaded', loadFn, false)
       }
     } else if (document.attachEvent) {
       IEContentLoaded(window, fn)
     }
 
-    function IEContentLoaded(w, fn) {
-      var d = w.document,
-        done = false,
-        // only fire once
-        init = function() {
-          if (!done) {
-            done = true
-            fn()
-          }
+    function IEContentLoaded (w, fn) {
+      var d = w.document
+      var done = false
+      // only fire once
+      var init = function () {
+        if (!done) {
+          done = true
+          fn()
         }
-        // polling for no errors
-      var polling = function() {
+      }
+      // polling for no errors
+      var polling = function () {
         try {
           // throws errors until after ondocumentready
           d.documentElement.doScroll('left')
@@ -81,11 +80,11 @@
         // no errors, fire
 
         init()
-      };
+      }
 
       polling()
-        // trying to always fire before onload
-      d.onreadystatechange = function() {
+      // trying to always fire before onload
+      d.onreadystatechange = function () {
         if (d.readyState == 'complete') {
           d.onreadystatechange = null
           init()
@@ -101,7 +100,7 @@
    * @param {Element} target
    */
 
-  var before = function(el, target) {
+  var before = function (el, target) {
     target.parentNode.insertBefore(el, target)
   }
 
@@ -112,7 +111,7 @@
    * @param {Element} target
    */
 
-  var prepend = function(el, target) {
+  var prepend = function (el, target) {
     if (target.firstChild) {
       before(el, target.firstChild)
     } else {
@@ -120,7 +119,7 @@
     }
   }
 
-  function appendSvg() {
+  function appendSvg () {
     var div, svg
 
     div = document.createElement('div')
@@ -140,13 +139,11 @@
   if (shouldInjectCss && !window.__iconfont__svg__cssinject__) {
     window.__iconfont__svg__cssinject__ = true
     try {
-      document.write("<style>.svgfont {display: inline-block;width: 1em;height: 1em;fill: currentColor;vertical-align: -0.1em;font-size:16px;}</style>");
+      document.write('<style>.svgfont {display: inline-block;width: 1em;height: 1em;fill: currentColor;vertical-align: -0.1em;font-size:16px;}</style>')
     } catch (e) {
       console && console.log(e)
     }
   }
 
   ready(appendSvg)
-
-
 })(window)

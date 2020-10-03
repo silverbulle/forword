@@ -10,15 +10,15 @@
 </template>
 
 <script>
-    import vSidebar from './Sidebar.vue';
-    export default {
-   	 	data() {
-            return {
-            		
-            }
-        },
-        components:{
-            vSidebar
-        }
+import vSidebar from './Sidebar.vue'
+export default {
+   	 	data () {
+    return {
+
     }
+  },
+  components: {
+    vSidebar
+  }
+}
 </script>

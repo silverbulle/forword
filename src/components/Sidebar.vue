@@ -24,10 +24,10 @@
 			        <el-menu-item index="table2">固定列表格</el-menu-item>
 			        <el-menu-item index="table3">筛选表格</el-menu-item>
 		        </el-submenu>
-		        <el-menu-item index="carousel"><i class="iconfont icon-lunbotu"></i>走马灯</el-menu-item>
+		        <el-menu-item index="Main"><i class="iconfont icon-lunbotu"></i>主页面</el-menu-item>
 		        <el-submenu index="2">
 			        <template slot="title"><i class="el-icon-menu"></i>表单</template>
-			        <el-menu-item index="radio">Radio单选框</el-menu-item>
+			        <el-menu-item index="filedetail">文件详情查看</el-menu-item>
 			        <el-menu-item index="checkbox">Checkbox多选框</el-menu-item>
 			        <el-menu-item index="input">Input 输入框</el-menu-item>
 			        <el-menu-item index="select">Select 选择器</el-menu-item>
@@ -40,18 +40,18 @@
 </template>
 
 <script>
-	export default {
-   	 	data() {
-            return {
-            		
-            }
-       },
-        methods: {
-        		 handleCommand(command) {
-		        this.$router.push('/login');
-		     }
-        }
+export default {
+   	 	data () {
+    return {
+
     }
+  },
+  methods: {
+        		 handleCommand (command) {
+		        this.$router.push('/login')
+		     }
+  }
+}
 </script>
 
 <style>
