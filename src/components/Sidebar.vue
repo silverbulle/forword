@@ -18,22 +18,12 @@
 		</div>
 		<div class="meau">
 			<el-menu default-active="1" class="el-menu-vertical-demo" router="true">
-		        <el-submenu index="1">
-			        <template slot="title"><i class="iconfont icon-biaoge"></i>表格</template>
-			        <el-menu-item index="table1">基础表格</el-menu-item>
-			        <el-menu-item index="table2">固定列表格</el-menu-item>
-			        <el-menu-item index="table3">筛选表格</el-menu-item>
-		        </el-submenu>
-		        <el-menu-item index="Main"><i class="iconfont icon-lunbotu"></i>主页面</el-menu-item>
-		        <el-submenu index="2">
-			        <template slot="title"><i class="el-icon-menu"></i>表单</template>
-			        <el-menu-item index="filedetail">文件详情查看</el-menu-item>
-			        <el-menu-item index="checkbox">Checkbox多选框</el-menu-item>
-			        <el-menu-item index="input">Input 输入框</el-menu-item>
-			        <el-menu-item index="select">Select 选择器</el-menu-item>
-		        </el-submenu>
-		        <el-menu-item index="echarts"><i class="iconfont icon-tubiao"></i>ECharts</el-menu-item>
-		        <el-menu-item index="qrcode"><i class="iconfont icon-erweima"></i>二维码</el-menu-item>
+				<el-menu-item index="Main"><i class="iconfont icon-lunbotu"></i>主页面</el-menu-item>
+				<el-menu-item index="Auditing"><i class="iconfont icon-lunbotu"></i>上传文件</el-menu-item>
+				<el-menu-item index="filedetail"><i class="iconfont icon-lunbotu"></i>文件详情查看</el-menu-item>
+				<el-menu-item index="Senuphold"><i class="iconfont icon-lunbotu"></i>敏感词维护</el-menu-item>
+				<el-menu-item index="Appuphold"><i class="iconfont icon-lunbotu"></i>附件类型维护</el-menu-item>
+		        
 		    </el-menu>
 		</div>
 	</div>
