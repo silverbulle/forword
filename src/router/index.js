@@ -5,10 +5,15 @@ import Home from '../components/Home'
 import About from '../views/About.vue'
 import Main from '../views/Main.vue'
 import Detail from '../views/Detail.vue'
+import Login from '../components/Login'
 
 Vue.use(VueRouter)
 
 const routes = [
+  {
+    path: '/',
+    redirect: '/login'
+  },
   {
     path: '/',
     name: 'Home',
@@ -32,11 +37,14 @@ const routes = [
         path: '/filedetail',
         name: 'Detail',
         component: Detail
-      },
+      }
 
     ]
   },
-
+  {
+    path: '/login', // 用户管理
+    component: Login
+  }
 ]
 
 const router = new VueRouter({
