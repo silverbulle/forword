@@ -1,16 +1,16 @@
 <template>
   <div>
-    
+
   </div>
 </template>
 
 <script>
 export default {
-  name: "Main",
-  data() {
+  name: 'Main',
+  data () {
     return {
-      value: new Date(),
-    };
-  },
-};
+      value: new Date()
+    }
+  }
+}
 </script>

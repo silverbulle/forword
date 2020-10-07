@@ -14,51 +14,50 @@ const api = {
       params: params
     })
   },
-  getapp(params){
+  getapp (params) {
     console.log(params)
-    return(axios.get(base.baseUrl + base.appselect,params));
-},
+    return (axios.get(base.baseUrl + base.appselect, params))
+  },
 
-getsen(params){
+  getsen (params) {
     console.log(params)
-    return(axios.get(base.baseUrl + base.Sensitives,params));
-},
+    return (axios.get(base.baseUrl + base.Sensitives, params))
+  },
 
-getfile(params){
+  getfile (params) {
     console.log(params)
-    return(axios.get(base.baseUrl + base.FileSelect,params));
-},
+    return (axios.get(base.baseUrl + base.FileSelect, params))
+  },
 
-delsen(params){
+  delsen (params) {
     console.log(params)
-    return(axios.post(base.baseUrl + base.DelSensitives,qs.stringify(params)));
-},
+    return (axios.post(base.baseUrl + base.DelSensitives, qs.stringify(params)))
+  },
 
-
-delfile(params){
+  delfile (params) {
     console.log(params)
-    return(axios.post(base.baseUrl + base.DeleFile,qs.stringify(params)));
-},
+    return (axios.post(base.baseUrl + base.DeleFile, qs.stringify(params)))
+  },
 
-delappendix(params){
+  delappendix (params) {
     console.log(params)
-    return(axios.post(base.baseUrl + base.delappendix,qs.stringify(params)));
-},
+    return (axios.post(base.baseUrl + base.delappendix, qs.stringify(params)))
+  },
 
-addfile(params){
+  addfile (params) {
     console.log(params)
-    return(axios.post(base.baseUrl + base.AddFile,qs.stringify(params)));
-},
+    return (axios.post(base.baseUrl + base.AddFile, qs.stringify(params)))
+  },
 
-addappendix(params){
+  addappendix (params) {
     console.log(params)
-    return(axios.post(base.baseUrl + base.AddAppendix,qs.stringify(params)));
-},
+    return (axios.post(base.baseUrl + base.AddAppendix, qs.stringify(params)))
+  },
 
-addsensitive(params){
+  addsensitive (params) {
     console.log(params)
-    return(axios.post(base.baseUrl + base.AddSensitive,qs.stringify(params)));
-}
+    return (axios.post(base.baseUrl + base.AddSensitive, qs.stringify(params)))
+  }
 }
 
 export default api

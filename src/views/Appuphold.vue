@@ -26,91 +26,87 @@
 import axios from 'axios'
 import api from '../api'
 export default {
-    name:'Appuphold',
-    data(){
-        return{
-            AppendixData:'',
-            Appendixes:[],
-            word:''
-        }
-    },
-    methods:{
-        
-    },
-    mounted(){
-            this.$api.getapp({
-                params:{
-                    page:'1',
-                    pageSize:'10',
-                    word:''
-                }   
-            }).then(res =>{
-                console.log(res)
-                for(let i=0;i<res.data.data.total;i++)
-                {
-                    
-                    this.Appendixes.push(res.data.data.list[i].fields)
-                }
-            }).catch(error =>{
-                console.log(error)
-            })
-    },
-    methods:{
-        AppendixDel(){
-            this.$api.delappendix({
-                id:this.Appendixes.pk
-            }).then(res => {
-                console.log(res)
-            }).catch(error =>{
-                console.log(error)
-            })
-        },
-        searchappendix(){
-            this.$api.getapp({
-                params:{
-                    page:'1',
-                    pageSize:'10',
-                    word:this.word
-                }
-            }).then(res=>{
-                console.log(res)
-                this.Appendixes = []
-                for(let i=0;i<res.data.data.total;i++)
-                {
-                    this.Appendixes.push(res.data.data.list[i].fields)
-                }
-            }).catch(error=>{
-                console.log(error)
-            })
-        },
-        open() {
-            this.$prompt('请输入要添加的附件类型', '添加附件类型', {
-                confirmButtonText: '确定',
-                cancelButtonText: '取消',
-            }).then(({ value }) => {
-                this.$api.addappendix({
-                    name:value
-                }).then(res=>{
-                    console.log(res)
-                    if(res.data.code == 200)
-                    {
-                        this.$message({
-                        type: 'success',
-                        message: '你添加的附件类型是: ' + value,
-                    });
-                    window.reload()
-                    }
-                }).catch(error =>{
-                    this.$router.go(0)
-                })
-            }).catch(() => {
-            this.$message({
-                type: 'info',
-                message: '取消输入'
-            });       
-            });
-        }
+  name: 'Appuphold',
+  data () {
+    return {
+      AppendixData: '',
+      Appendixes: [],
+      word: ''
     }
+  },
+  methods: {
+
+  },
+  mounted () {
+    this.$api.getapp({
+      params: {
+        page: '1',
+        pageSize: '10',
+        word: ''
+      }
+    }).then(res => {
+      console.log(res)
+      for (let i = 0; i < res.data.data.total; i++) {
+        this.Appendixes.push(res.data.data.list[i].fields)
+      }
+    }).catch(error => {
+      console.log(error)
+    })
+  },
+  methods: {
+    AppendixDel () {
+      this.$api.delappendix({
+        id: this.Appendixes.pk
+      }).then(res => {
+        console.log(res)
+      }).catch(error => {
+        console.log(error)
+      })
+    },
+    searchappendix () {
+      this.$api.getapp({
+        params: {
+          page: '1',
+          pageSize: '10',
+          word: this.word
+        }
+      }).then(res => {
+        console.log(res)
+        this.Appendixes = []
+        for (let i = 0; i < res.data.data.total; i++) {
+          this.Appendixes.push(res.data.data.list[i].fields)
+        }
+      }).catch(error => {
+        console.log(error)
+      })
+    },
+    open () {
+      this.$prompt('请输入要添加的附件类型', '添加附件类型', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消'
+      }).then(({ value }) => {
+        this.$api.addappendix({
+          name: value
+        }).then(res => {
+          console.log(res)
+          if (res.data.code == 200) {
+            this.$message({
+              type: 'success',
+              message: '你添加的附件类型是: ' + value
+            })
+            window.reload()
+          }
+        }).catch(error => {
+          this.$router.go(0)
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '取消输入'
+        })
+      })
+    }
+  }
 
 }
 </script>

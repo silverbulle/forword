@@ -1,5 +1,5 @@
 <template>
-    <div>       
+    <div>
         <el-form ref="form" label-width="80px">
             <el-form-item label="送审文件">
                 <el-input placeholder="请输入内容" v-model="FormList.filename" class="input-with-select">
@@ -53,82 +53,78 @@
 
 <script>
 import Vue from 'vue'
-Vue.component('dom',{
-    template:'<div>组件</div>'
+Vue.component('dom', {
+  template: '<div>组件</div>'
 })
 export default {
-    name:'Audidting',
-    data(){
-        return{
-            FormList:{
-                filename:'',
-                type:'',
-                Appendix:'',
-                Appendixtype:'',
-                needAppendix:'',
-                needAppendixtype:'',
-                issuer:'',
-                issuerdepartment:'',
-                uploadtime:'',
-                remark:''
-            },
-            appendix:['规范性文件','法律','合同'],
-            appendixtype:[],
-            checkboxGroup1:[],
-            counter:[],
-        }
-    },
-    mounted(){
-        this.$api.getapp({
-                params:{
-                    page:'1',
-                    pageSize:'1000',
-                    word:''
-                }   
-            }).then(res =>{
-                console.log(res)
-                for(let i=0;i<res.data.data.total;i++)
-                {
-                    this.appendixtype.push(res.data.data.list[i].fields.name)
-                    
-                }
-                console.log(this.appendix)
-            }).catch(error => {
-                console.log(error)
-            })
-    },
-    methods:{
-        onSubmit(){
-            this.$api.addfile({
-                file:this.FormList.filename,
-                jsonText:this.FormList,
-
-            }).then(res => {
-                console.log(res)
-                if(res.data.code == 500)
-                {
-                    alert("上传成功");
-                    const ToDetailPage = this.$router.resolve({name:'Filedetail'})
-                    window.open(ToDetailPage.href,'_blank')
-                    
-                }
-            }).catch(error => {
-                console.log(error)
-            })
-        },
-        handleCheckAllChange(val) {
-            this.checkedtypes = val ? appendixtype : [];
-            this.isIndeterminate = false;
-        },
-        handleCheckedCitiesChange(value) {
-            let checkedCount = value.length;
-            this.checkAll = checkedCount === this.cities.length;
-            this.isIndeterminate = checkedCount > 0 && checkedCount < this.cities.length;
-        },
-        add(){
-            this.counter.push({})
-        }
+  name: 'Audidting',
+  data () {
+    return {
+      FormList: {
+        filename: '',
+        type: '',
+        Appendix: '',
+        Appendixtype: '',
+        needAppendix: '',
+        needAppendixtype: '',
+        issuer: '',
+        issuerdepartment: '',
+        uploadtime: '',
+        remark: ''
+      },
+      appendix: ['规范性文件', '法律', '合同'],
+      appendixtype: [],
+      checkboxGroup1: [],
+      counter: []
     }
+  },
+  mounted () {
+    this.$api.getapp({
+      params: {
+        page: '1',
+        pageSize: '1000',
+        word: ''
+      }
+    }).then(res => {
+      console.log(res)
+      for (let i = 0; i < res.data.data.total; i++) {
+        this.appendixtype.push(res.data.data.list[i].fields.name)
+      }
+      console.log(this.appendix)
+    }).catch(error => {
+      console.log(error)
+    })
+  },
+  methods: {
+    onSubmit () {
+      this.$api.addfile({
+        file: this.FormList.filename,
+        jsonText: this.FormList
+
+      }).then(res => {
+        console.log(res)
+        if (res.data.code == 500) {
+          alert('上传成功')
+          const ToDetailPage = this.$router.resolve({ name: 'Filedetail' })
+          window.open(ToDetailPage.href, '_blank')
+        }
+      }).catch(error => {
+        console.log(error)
+      })
+    },
+    handleCheckAllChange (val) {
+      this.checkedtypes = val ? appendixtype : []
+      this.isIndeterminate = false
+    },
+    handleCheckedCitiesChange (value) {
+      const checkedCount = value.length
+      this.checkAll = checkedCount === this.cities.length
+      this.isIndeterminate = checkedCount > 0 && checkedCount < this.cities.length
+    },
+    add () {
+      this.counter.push({})
+    }
+  }
 }
 </script>
 

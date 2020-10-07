@@ -23,7 +23,7 @@
 				<el-menu-item index="filedetail"><i class="iconfont icon-lunbotu"></i>文件详情查看</el-menu-item>
 				<el-menu-item index="Senuphold"><i class="iconfont icon-lunbotu"></i>敏感词维护</el-menu-item>
 				<el-menu-item index="Appuphold"><i class="iconfont icon-lunbotu"></i>附件类型维护</el-menu-item>
-		        
+
 		    </el-menu>
 		</div>
 	</div>

@@ -9,6 +9,8 @@ import Login from '../components/Login'
 import Senuphold from '../views/Senuphold'
 import Appuphold from '../views/Appuphold'
 import Auditing from '../views/Auditing'
+import Detail1 from '../views/ChildePage/Detail'
+import Edit from '../views/ChildePage/Edit'
 
 Vue.use(VueRouter)
 
@@ -31,20 +33,21 @@ const routes = [
         component: About
         // component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
       },
-      { path: '/Main',name: 'Main',component: Main},
+      { path: '/Main', name: 'Main', component: Main },
       {
         path: '/filedetail',
         name: 'Detail',
         component: Detail
       },
-      { path:'/Senuphold',name:'Senuphold',component:Senuphold},
+      { path: '/Senuphold', name: 'Senuphold', component: Senuphold },
 
-      { path:'/Appuphold',name:'Appuphold',component:Appuphold},
+      { path: '/Appuphold', name: 'Appuphold', component: Appuphold },
 
-      { path:'/Auditing',name:'Auditing',component:Auditing},
+      { path: '/Auditing', name: 'Auditing', component: Auditing },
 
-      { path:'/Detail',name:'Detail1',component:Detail},
+      { path: '/Detail1', name: 'Detail1', component: Detail1 },
 
+      { path: '/Edit', name: 'Edit', component: Edit }
 
     ]
   },
