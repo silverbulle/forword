@@ -189,12 +189,12 @@ export default {
       //window.open(DetailPage.href, '_blank')
     },
     searchfile () {
-      console.log(this.word)
+      console.log(this.pageform.word)
       this.$api.getfile({
         params: {
           page: '1',
           pageSize: '10',
-          word: this.word,
+          word: this.pageform.word,
           type: '0,1,2',
           state: '0,1,2,3,4'
         }
