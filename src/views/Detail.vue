@@ -185,8 +185,8 @@ export default {
     FileDetail1 (e) {
       var msg = this.tableData
       this.$router.push({ name: 'Detail1', params: msg })
-      //const DetailPage = this.$router.resolve({ name: 'Detail1', params: msg })
-      //window.open(DetailPage.href, '_blank')
+      // const DetailPage = this.$router.resolve({ name: 'Detail1', params: msg })
+      // window.open(DetailPage.href, '_blank')
     },
     searchfile () {
       console.log(this.pageform.word)
@@ -207,21 +207,21 @@ export default {
 
           this.tableData.push(res.data.data.list[i].fields)
 
-          if (res.data.data.list[i].fields.state == '0') {
+          if (res.data.data.list[i].fields.state === '0') {
             res.data.data.list[i].fields.state = '审核完成'
-          } if (res.data.data.list[i].fields.state == '1') {
+          } if (res.data.data.list[i].fields.state === '1') {
             res.data.data.list[i].fields.state = '审核未完成'
-          } if (res.data.data.list[i].fields.state == '2') {
+          } if (res.data.data.list[i].fields.state === '2') {
             res.data.data.list[i].fields.state = '系统处理完成'
-          } if (res.data.data.list[i].fields.state == '3') {
+          } if (res.data.data.list[i].fields.state === '3') {
             res.data.data.list[i].fields.state = '系统处理未完成'
           }
 
-          if (res.data.data.list[i].fields.type == '0') {
+          if (res.data.data.list[i].fields.type === '0') {
             res.data.data.list[i].fields.type = '规范性文件'
-          } if (res.data.data.list[i].fields.type == '1') {
+          } if (res.data.data.list[i].fields.type === '1') {
             res.data.data.list[i].fields.type = '法律'
-          } if (res.data.data.list[i].fields.type == '2') {
+          } if (res.data.data.list[i].fields.type === '2') {
             res.data.data.list[i].fields.type = '合同'
           }
         }

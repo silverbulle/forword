@@ -47,7 +47,7 @@ html,body{
 .meau{
 	width: 180px;
 	height: calc(100% - 70px);
-	background-color: #354152;
+	/* background-color: #354152; */
 }
 .header-logo{
 	height: 100%;

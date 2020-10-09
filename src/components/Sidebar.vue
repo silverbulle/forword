@@ -18,19 +18,19 @@
     </div>
     <div class="meau">
       <el-menu default-active="1" class="el-menu-vertical-demo" router="true">
-        <el-menu-item index="Main" 
+        <el-menu-item index="Main"
           ><i class="iconfont icon-lunbotu"></i>主页面</el-menu-item
         >
-        <el-menu-item index="Auditing" 
+        <el-menu-item index="Auditing"
           ><i class="iconfont icon-lunbotu"></i>上传文件</el-menu-item
         >
-        <el-menu-item index="filedetail" 
+        <el-menu-item index="filedetail"
           ><i class="iconfont icon-lunbotu"></i>文件详情查看</el-menu-item
         >
-        <el-menu-item index="Senuphold" 
+        <el-menu-item index="Senuphold"
           ><i class="iconfont icon-lunbotu"></i>敏感词维护</el-menu-item
         >
-        <el-menu-item index="Appuphold" 
+        <el-menu-item index="Appuphold"
           ><i class="iconfont icon-lunbotu"></i>附件类型维护</el-menu-item
         >
       </el-menu>
@@ -40,15 +40,15 @@
 
 <script>
 export default {
-  data() {
-    return {};
+  data () {
+    return {}
   },
   methods: {
-    handleCommand(command) {
-      this.$router.push("/login");
-    },
-  },
-};
+    handleCommand (command) {
+      this.$router.push('/login')
+    }
+  }
+}
 </script>
 
 <style>
@@ -63,8 +63,9 @@ export default {
 .el-menu-vertical-demo,
 .el-submenu__title,
 .el-menu-item {
+  z-index: 888;
   color: rgb(238, 25, 25);
   border-radius: 0px;
-  background-color: #354152;
+  /* background-color: #354152; */
 }
 </style>
