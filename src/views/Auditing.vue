@@ -1,8 +1,8 @@
 <template>
   <div>
-    <el-form ref="form" label-width="100px">
+    <el-form ref="form" label-width="100px" :model="formData3" size="medium">
       <el-form-item label="送审文件">
-        <el-select v-model="FormList.type">
+        <el-select v-model="mainfiletype">
           <el-option
             v-for="i in appendix"
             :key="i"
@@ -22,7 +22,7 @@
           :on-remove="handleRemove"
           :file-list="fileList"
           :auto-upload="false"
-          :on-change="handleChange"
+          :on-change="mainfilehandleChange"
         >
           <el-button slot="trigger" size="small" type="primary"
             >选取送审文件</el-button
@@ -32,7 +32,13 @@
           </div>
         </el-upload>
       </el-form-item>
-      <el-form-item label="上传附件">
+      <el-form-item
+        label="上传附件类型"
+        :prop="'powerAttrList.' + index + '.fieldDesc'"
+        :rules="[
+          { required: true, message: '描述不能为空', trigger: 'change' },
+        ]"
+      >
         <el-select v-model="FormList.Appendixtype">
           <el-option
             v-for="i in appendixtype"
@@ -41,6 +47,7 @@
             :value="i"
           ></el-option>
         </el-select>
+
         <el-upload
           class="upload-demo"
           ref="upload"
@@ -49,14 +56,21 @@
           :on-remove="handleRemove"
           :file-list="fileList"
           :auto-upload="false"
+          :on-change="appendixhandleChange"
         >
           <el-button slot="trigger" size="small" type="primary"
             >选取相关附件</el-button
           >
-          <div slot="tip" class="el-upload__tip">
-            maybe只能上传word文件(后缀名为.docx)
-          </div>
+          <div slot="tip" class="el-upload__tip">maybe只能上传word文件</div>
         </el-upload>
+        <el-row>
+          <el-button type="primary" size="medium" @click="addRow"
+            >新增属性</el-button
+          >
+          <el-button type="primary" size="medium" @click="submit('formData3')"
+            >提交</el-button
+          >
+        </el-row>
         <div v-for="(d, index) in counter" :key="index">
           <dom></dom>
         </div>
@@ -106,6 +120,8 @@
 
 <script>
 import Vue from "vue";
+import base from "../api/base";
+import axios from "../utils/request";
 Vue.component("dom", {
   template: "<div>组件</div>",
 });
@@ -113,7 +129,20 @@ export default {
   name: "Audidting",
   data() {
     return {
+      formData3: {
+        powerAttrList: [
+          {
+            fieldName: "",
+            fieldSort: "",
+            fieldDesc: "",
+            fieldTime: "",
+          },
+        ],
+      },
+
+      mainfiletype: "",
       file: [],
+      appendixfile: [],
       FormList: {
         name: "",
         type: "",
@@ -163,14 +192,33 @@ export default {
   },
   methods: {
     onSubmit() {
+      let formData = new FormData();
+      if (this.mainfiletype === "规范性文件") {
+        this.FormList.type = "1";
+      } else if (this.mainfiletype === "法律") {
+        this.FormList.type = "2";
+      } else if (this.mainfiletype === "合同") {
+        this.FormList.type = "3";
+      }
+
       var jsonText = JSON.stringify(this.FormList);
+      formData.append("jsonText", jsonText);
+      formData.append("file", this.file);
+
       // alert(jsonText);
       alert(this.file);
-      this.$api
-        .addfile({
-          file: this.file,
-          jsonText: jsonText,
-          // jsonText: this.FormList,
+      // this.$api
+      //   .addfile({
+      //     file: this.file,
+      //     jsonText: jsonText,
+      //     // jsonText: this.FormList,
+      //   })
+      console.log(formData);
+      axios
+        .post(base.baseUrl + base.AddFile, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
         })
         .then((res) => {
           console.log(res);
@@ -196,11 +244,25 @@ export default {
       this.isIndeterminate =
         checkedCount > 0 && checkedCount < this.cities.length;
     },
-    handleChange(file, fileList) {
+    mainfilehandleChange(file, fileList) {
       // console.log(fileList);
       // console.log(typeof fileList);
       this.FormList.name = file.name;
       this.file = fileList[0].raw;
+    },
+    appendixhandleChange(file, fileList) {
+      this.appendixfile = fileList;
+      for (let index = 0; index < this.appendixfile.length; index++) {
+        const element = array[index];
+      }
+    },
+    addRow() {
+      this.formData3.powerAttrList.push({
+        fieldName: "",
+        fieldSort: "",
+        fieldDesc: "",
+        fieldTime: "",
+      });
     },
   },
 };

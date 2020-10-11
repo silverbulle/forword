@@ -11,6 +11,7 @@ import Appuphold from '../views/Appuphold'
 import Auditing from '../views/Auditing'
 import Detail1 from '../views/ChildePage/Detail'
 import Edit from '../views/ChildePage/Edit'
+import Auditingnew from '../views/Auditingnew'
 
 Vue.use(VueRouter)
 
@@ -44,6 +45,8 @@ const routes = [
       { path: '/Appuphold', name: 'Appuphold', component: Appuphold },
 
       { path: '/Auditing', name: 'Auditing', component: Auditing },
+
+      { path: '/Auditingnew', name: 'Auditingnew', component: Auditingnew },
 
       { path: '/Detail1', name: 'Detail1', component: Detail1 },
 
