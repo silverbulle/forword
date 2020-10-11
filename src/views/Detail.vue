@@ -51,7 +51,7 @@
                   size="small"
                   >查看</el-button
                 >
-                <el-button type="text" size="small">编辑</el-button>
+                <el-button type="text" size="small" @click="delfile">删除</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -117,8 +117,16 @@ export default {
     },
     handleClick (row) {
       console.log(row)
-      console.log(row.pk)
-      this.FileDetail1(row.pk)
+      console.log(row.state)
+      if(row.state == "系统处理中")
+      {
+        alert("处理中的文件不可操作！")
+      }
+      else{
+        console.log(row.pk)
+        this.FileDetail1(row.pk)
+      }
+
       // var id_1 = row.pk
       // this.$router.push({ name: 'Detail1', params: id_1 })
     },
@@ -140,6 +148,23 @@ export default {
             for (let i = 0; i < this.pageform.pageSize; i++) {
               if (res.data.data.list[i].fields != null) {
                 this.tableData.push(res.data.data.list[i].fields)
+                if (res.data.data.list[i].fields.state == '0') {
+                  res.data.data.list[i].fields.state = '审核未完成'
+                } if (res.data.data.list[i].fields.state == '1') {
+                  res.data.data.list[i].fields.state = '审核完成'
+                } if (res.data.data.list[i].fields.state == '2') {
+                  res.data.data.list[i].fields.state = '系统处理中'
+                } if (res.data.data.list[i].fields.state == '3') {
+                  res.data.data.list[i].fields.state = '系统处理完成'
+                }
+
+                if (res.data.data.list[i].fields.type == '0') {
+                  res.data.data.list[i].fields.type = '规范性文件'
+                } if (res.data.data.list[i].fields.type == '1') {
+                  res.data.data.list[i].fields.type = '法律'
+                } if (res.data.data.list[i].fields.type == '2') {
+                  res.data.data.list[i].fields.type = '合同'
+                }
               } else {
                 this.tableData.push([{ filename: '' }])
                 console.log(this.tableData)
@@ -168,7 +193,7 @@ export default {
         .then((res) => {
           console.log(res)
           console.log('分页效果已取得响应数据')
-          console.log(res.data.list[0])
+          console.log(res.data.data.list)
           if (res.data.code == 200) {
             console.log(res.data.data.list)
             this.tableData = []
@@ -239,7 +264,7 @@ export default {
     }
   },
   mounted: function () {
-    this.searchfile()
+    this.getfilelist()
   }
 }
 </script>

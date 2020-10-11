@@ -12,8 +12,10 @@ const base = {
   DelAppendix: '/law/appendix/delete',
   AddFile: '/law/file/add',
   AddAppendix: '/law/appendixtype/add',
-  AddSensitive: '/law/sensitivewords/add'
-  // '/law/file/select?page={0}&pageSize={1}&word={2}&type={3}&state={4}'
+  AddSensitive: '/law/sensitivewords/add',
+  ChangeState: '/law/file/updateState',
+  FileReader: '/law/file/selectById'
+
 }
 
 export default base
