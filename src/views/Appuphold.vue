@@ -12,8 +12,8 @@
             <el-table-column prop="name" label="附件类型" width="180"></el-table-column>
             <el-table-column
                 label="操作" width="140">
-                <template >
-                    <el-button @click="AppendixDel" type="text" size="small">
+                <template slot-scope="scope">
+                    <el-button @click="AppendixDel(scope.row)" type="text" size="small">
                     移除
                     </el-button>
                 </template>
@@ -34,9 +34,6 @@ export default {
       word: ''
     }
   },
-  methods: {
-
-  },
   mounted () {
     this.$api.getapp({
       params: {
@@ -54,9 +51,10 @@ export default {
     })
   },
   methods: {
-    AppendixDel () {
+    AppendixDel (row) {
+      console.log(row)
       this.$api.delappendix({
-        id: this.Appendixes.pk
+        id: row.pk
       }).then(res => {
         console.log(res)
       }).catch(error => {

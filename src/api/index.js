@@ -41,7 +41,7 @@ const api = {
 
   delappendix (params) {
     console.log(params)
-    return (axios.post(base.baseUrl + base.delappendix, qs.stringify(params)))
+    return (axios.post(base.baseUrl + base.DelAppendix, qs.stringify(params)))
   },
 
   addfile (params) {
@@ -57,6 +57,16 @@ const api = {
   addsensitive (params) {
     console.log(params)
     return (axios.post(base.baseUrl + base.AddSensitive, qs.stringify(params)))
+  },
+
+  changestate (params) {
+    console.log(params)
+    return (axios.post(base.baseUrl + base.ChangeState, qs.stringify(params)))
+  },
+
+  selectfilebyid (params) {
+    console.log(params)
+    return (axios.get(base.baseUrl + base.FileReader, params))
   }
 }
 
