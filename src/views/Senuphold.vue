@@ -12,8 +12,8 @@
             <el-table-column prop="name" label="敏感词" width="180"></el-table-column>
             <el-table-column
                 label="操作" width="140">
-                <template slot-scope="">
-                    <el-button @click="DeletSen" type="text" size="small"> 移除 </el-button>
+                <template slot-scope="scope">
+                    <el-button @click="DeletSen(scope.row)" type="text" size="small"> 移除 </el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -33,9 +33,9 @@ export default {
     }
   },
   methods: {
-    DeletSen () {
+    DeletSen (row) {
       this.$api.delsen({
-        pk: ''
+        pk: row.pk
       }).then(res => {
         console.log(res)
       }).catch(error => {

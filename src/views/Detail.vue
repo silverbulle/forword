@@ -44,9 +44,9 @@
             <el-table-column prop="state" label="状态" width="120">
             </el-table-column>
             <el-table-column fixed="right" label="操作" width="100">
-              <template>
+              <template slot-scope="scope">
                 <el-button
-                  @click="FileDetail1"
+                  @click="handleClick(scope.row)"
                   type="text"
                   size="small"
                   >查看</el-button
@@ -95,7 +95,8 @@ export default {
         word: '',
         type: '0,1,2',
         state: '0,1,2,3,4'
-      }
+      },
+      id: Number
     }
 
     // const item = {
@@ -116,6 +117,10 @@ export default {
     },
     handleClick (row) {
       console.log(row)
+      console.log(row.pk)
+      this.FileDetail1(row.pk)
+      // var id_1 = row.pk
+      // this.$router.push({ name: 'Detail1', params: id_1 })
     },
     getfilelist (params) {
       console.log('已进入请求函数中')
@@ -161,8 +166,9 @@ export default {
           state: this.pageform.state
         })
         .then((res) => {
+          console.log(res)
           console.log('分页效果已取得响应数据')
-          console.log(res.data)
+          console.log(res.data.list[0])
           if (res.data.code == 200) {
             console.log(res.data.data.list)
             this.tableData = []
@@ -183,20 +189,19 @@ export default {
         })
     },
     FileDetail1 (e) {
-      var msg = this.tableData
-      this.$router.push({ name: 'Detail1', params: msg })
-      // const DetailPage = this.$router.resolve({ name: 'Detail1', params: msg })
-      // window.open(DetailPage.href, '_blank')
+      var msg = e
+      console.log(msg)
+      this.$router.push({ name: 'Detail1', params: { id: msg } })
     },
     searchfile () {
       console.log(this.pageform.word)
       this.$api.getfile({
         params: {
-          page: '1',
-          pageSize: '10',
+          page: this.pageform.page,
+          pageSize: this.pageform.pageSize,
           word: this.pageform.word,
-          type: '0,1,2',
-          state: '0,1,2,3,4'
+          type: this.pageform.type,
+          state: this.pageform.state
         }
       }).then(res => {
         console.log(res)
@@ -207,21 +212,21 @@ export default {
 
           this.tableData.push(res.data.data.list[i].fields)
 
-          if (res.data.data.list[i].fields.state === '0') {
+          if (res.data.data.list[i].fields.state == '0') {
             res.data.data.list[i].fields.state = '审核完成'
-          } if (res.data.data.list[i].fields.state === '1') {
+          } if (res.data.data.list[i].fields.state == '1') {
             res.data.data.list[i].fields.state = '审核未完成'
-          } if (res.data.data.list[i].fields.state === '2') {
+          } if (res.data.data.list[i].fields.state == '2') {
             res.data.data.list[i].fields.state = '系统处理完成'
-          } if (res.data.data.list[i].fields.state === '3') {
+          } if (res.data.data.list[i].fields.state == '3') {
             res.data.data.list[i].fields.state = '系统处理未完成'
           }
 
-          if (res.data.data.list[i].fields.type === '0') {
+          if (res.data.data.list[i].fields.type == '0') {
             res.data.data.list[i].fields.type = '规范性文件'
-          } if (res.data.data.list[i].fields.type === '1') {
+          } if (res.data.data.list[i].fields.type == '1') {
             res.data.data.list[i].fields.type = '法律'
-          } if (res.data.data.list[i].fields.type === '2') {
+          } if (res.data.data.list[i].fields.type == '2') {
             res.data.data.list[i].fields.type = '合同'
           }
         }
@@ -234,7 +239,7 @@ export default {
     }
   },
   mounted: function () {
-    this.getfilelist()
+    this.searchfile()
   }
 }
 </script>
