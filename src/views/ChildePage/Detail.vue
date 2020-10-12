@@ -45,6 +45,7 @@ export default {
       auditState: '',
       auditStates: ['审核完成', '审核未完成'],
       textinfo_1: Object,
+      textinfo_2: "", //对编辑页面传值
       id_2: Number,
       data_return_info:Array,
       origin_txt:"",//存放原文
@@ -105,9 +106,11 @@ export default {
       //this.$router.push({name:'Edit',params:{conflictmsg:msg}})
       var {href} = this.$router.resolve({ 
         name: 'Edit', 
-        // params: {conflictmsg:msg} 
+        // params: {filedetail:this.textinfo_2} 
         })
+        // alert(this.textinfo_2)
         localStorage.setItem("conflictmsg",msg)
+        localStorage.setItem("filename", this.textinfo_2)
         console.log(msg)
         window.open(href)
 
@@ -153,6 +156,7 @@ export default {
     }).then(res => {
       // console.log(res.data.data.list[0].fields.returncontent)
       this.textinfo_1 = res.data.data.list[0].fields.returncontent
+      this.textinfo_2 = res.data.data.list[0].fields.name
       var data1 = {}
       data1 = JSON.parse(this.textinfo_1)
       var data = []

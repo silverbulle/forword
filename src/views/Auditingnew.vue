@@ -275,11 +275,11 @@ export default {
     onSubmit() {
       let formData = new FormData();
       if (this.mainfiletype === "规范性文件") {
-        this.FormList.type = "1";
+        this.FormList.type = "0";
       } else if (this.mainfiletype === "法律") {
-        this.FormList.type = "2";
+        this.FormList.type = "1";
       } else if (this.mainfiletype === "合同") {
-        this.FormList.type = "3";
+        this.FormList.type = "2";
       }
       alert("进入提交函数");
       //   console.log(this.formData3.appendix[0].Appendixtype);
