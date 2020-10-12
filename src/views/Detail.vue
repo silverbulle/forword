@@ -3,7 +3,7 @@
     <el-container style="border: 1px solid #eee">
       <el-container>
         <el-header style="text-align: right; font-size: 12px">
-          <el-input placeholder="请输入内容" v-model="pageform.word"  @keyup="searchfile" @input="updateView($event)">
+          <el-input placeholder="请输入内容" v-model="pageform.word" @keyup.enter.native="searchfile" @input="updateView($event)">
                 <el-button slot="append" icon="el-icon-search" @click="searchfile"></el-button>
             </el-input>
         </el-header>
@@ -51,7 +51,7 @@
                   size="small"
                   >查看</el-button
                 >
-                <el-button type="text" size="small" @click="delfile">删除</el-button>
+                <el-button type="text" size="small" @click="delfile(scope.row)">删除</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -98,15 +98,6 @@ export default {
       },
       id: Number
     }
-
-    // const item = {
-    //   date: "2016-05-02",
-    //   name: "王小虎",
-    //   address: "上海市普陀区金沙江路 1518 弄",
-    // };
-    // return {
-    //   tableData: Array(20).fill(item),
-    // };
   },
   methods: {
     gosen () {
@@ -126,9 +117,6 @@ export default {
         console.log(row.pk)
         this.FileDetail1(row.pk)
       }
-
-      // var id_1 = row.pk
-      // this.$router.push({ name: 'Detail1', params: id_1 })
     },
     getfilelist (params) {
       console.log('已进入请求函数中')
@@ -200,6 +188,23 @@ export default {
             for (let i = 0; i < res.data.data.list.length; i++) {
               if (res.data.data.list[i].fields != null) {
                 this.tableData.push(res.data.data.list[i].fields)
+                if (res.data.data.list[i].fields.state == '0') {
+                  res.data.data.list[i].fields.state = '审核未完成'
+                } if (res.data.data.list[i].fields.state == '1') {
+                  res.data.data.list[i].fields.state = '审核完成'
+                } if (res.data.data.list[i].fields.state == '2') {
+                  res.data.data.list[i].fields.state = '系统处理中'
+                } if (res.data.data.list[i].fields.state == '3') {
+                  res.data.data.list[i].fields.state = '系统处理完成'
+                }
+
+                if (res.data.data.list[i].fields.type == '0') {
+                  res.data.data.list[i].fields.type = '规范性文件'
+                } if (res.data.data.list[i].fields.type == '1') {
+                  res.data.data.list[i].fields.type = '法律'
+                } if (res.data.data.list[i].fields.type == '2') {
+                  res.data.data.list[i].fields.type = '合同'
+                }
               } else {
                 this.tableData.push([{ filename: '' }])
               }
@@ -218,6 +223,30 @@ export default {
       console.log(msg)
       this.$router.push({ name: 'Detail1', params: { id: msg } })
     },
+    updateView (e) {
+      this.$forceUpdate()
+    },
+    delfile(row){
+      console.log(row.pk)
+      if(row.state == "系统处理中"){
+        alert("处理中的文件不可被操作！")
+      }
+      else{
+        this.$api.delfile({
+          id:row.pk
+        }).then(res =>{
+          console.log(res)
+          if(res.data.code == 200){
+            alert("删除成功！")
+          }
+          else{
+            alert(res.data.message)
+          }
+        }).catch(error =>{
+          console.log(error)
+        })
+      }
+    },
     searchfile () {
       console.log(this.pageform.word)
       this.$api.getfile({
@@ -230,21 +259,17 @@ export default {
         }
       }).then(res => {
         console.log(res)
-
         this.tableData = []
         for (let i = 0; i < res.data.data.total; i++) {
           this.tableData.push(res.data.data.list[i].fields)
-
-          this.tableData.push(res.data.data.list[i].fields)
-
           if (res.data.data.list[i].fields.state == '0') {
-            res.data.data.list[i].fields.state = '审核完成'
-          } if (res.data.data.list[i].fields.state == '1') {
             res.data.data.list[i].fields.state = '审核未完成'
+          } if (res.data.data.list[i].fields.state == '1') {
+            res.data.data.list[i].fields.state = '审核完成'
           } if (res.data.data.list[i].fields.state == '2') {
-            res.data.data.list[i].fields.state = '系统处理完成'
+            res.data.data.list[i].fields.state = '系统处理中'
           } if (res.data.data.list[i].fields.state == '3') {
-            res.data.data.list[i].fields.state = '系统处理未完成'
+            res.data.data.list[i].fields.state = '系统处理完成'
           }
 
           if (res.data.data.list[i].fields.type == '0') {
@@ -259,9 +284,6 @@ export default {
         console.log(error)
       })
     },
-    updateView (e) {
-      this.$forceUpdate()
-    }
   },
   mounted: function () {
     this.getfilelist()

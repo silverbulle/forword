@@ -14,8 +14,7 @@ const base = {
   AddAppendix: '/law/appendixtype/add',
   AddSensitive: '/law/sensitivewords/add',
   ChangeState: '/law/file/updateState',
-  FileReader: '/law/file/selectById'
-
+  FileReader: '/law/file/selectById',
 }
 
 export default base

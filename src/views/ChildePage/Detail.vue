@@ -1,19 +1,10 @@
 <template>
     <div>
         <div class="first">
-            <!-- <el-button type="text" v-for="item in text" :key="item" :value="item">
-                {{item}}
-            </el-button> -->
-                <!-- <label  v-for="item in text" :key="item" :value="item">{{item}}<br><br></label> -->
-            <!-- <ul>
-                <li v-for="item in text" :key="item">{{item}}</li>
-            </ul> -->
-            <el-link v-for="item in text" :key="item" :value="item" @click="ShowRe($event)">
-                {{item}}
-            </el-link>
+            <el-link v-for="item in text" :key="item" :value="item" @click="ShowRe($event)">{{item}}</el-link>
         </div>
         <div class="second">
-            <label  v-for="item in textarea" :key="item" :value="item" @dblclick="ShowTips" :underline="false">{{item}}<br><br></label>
+            <el-link  v-for="item in textarea" :key="item" :value="item" @click="ShowTips($event)" :underline="false">{{item}}</el-link>
         </div>
         <div class="third">
             <div class="button1">
@@ -49,41 +40,56 @@ export default {
       text: [],
       typeinfo: Object,
       button_msg_1: '查看已添加的冲突项',
-      conflictmsg: '这是冲突项',
+      conflictmsg: [],
       auditState: '',
       auditStates: ['审核完成', '审核未完成'],
       textinfo_1: Object,
-      id_2: Number
+      id_2: Number,
+      data_return_info:Array,
+      origin_txt:"",//存放原文
+      ref:[],//存放依据
+      origin2ref:{},//存放原文与相关依据对应的json
     }
   },
   methods: {
+    //显示相关依据
     ShowRe (e) {
       this.textarea = []
-      console.log('textinfor_1：' + this.textinfo_1)
-      // console.log(e.target.innerHTML)
-      var key = []
+      console.log(typeof[this.textarea])
+      console.log(this.data_return_info)
+      console.log(typeof(this.data_return_info))
+      var data = this.data_return_info
+      console.log(data[0])
+      console.log(typeof(data))
       var key1 = e.target.innerHTML
+      console.log(typeof(key1))
       console.log(key1)
-      console.log(this.textinfo_1[key1])
-      var type4info = this.textinfo_1[key1].type4
+      console.log(data[0][key1])
+      var type4info = data[0][key1].type4
+      console.log(type4info)
       this.textarea = type4info
-      // console.log(this.textarea)
+      this.origin_txt = key1
     },
-    showConflict () {
-      var msg = this.conflictmsg
-      const ConflictPage = this.$router.resolve({ name: 'Edit', params: msg })
-      window.open(ConflictPage.href, '_blank')
-    },
-    ShowTips () {
-      this.$confirm('是否将此项添加到冲突项', '提示', {
+
+    //提示添加冲突项
+    ShowTips (e) {
+      console.log(e.target.innerHTML)
+      var cof_msg = e.target.innerHTML
+      var org_txt = this.origin_txt
+      this.$confirm('是否将'+cof_msg+'添加为“'+ org_txt+'”冲突项', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
-        type: 'warning'
+        type: 'warning',
       }).then(() => {
+        console.log(cof_msg)
+        var conctext = ("依据文件：{"+cof_msg+"}与原文：{"+org_txt+"}存在冲突" )
+        this.conflictmsg.push(conctext)
+        console.log(this.conflictmsg)
         this.$message({
           type: 'success',
-          message: '添加成功!'
+          message: '添加成功!',
         })
+
       }).catch(() => {
         this.$message({
           type: 'info',
@@ -91,6 +97,16 @@ export default {
         })
       })
     },
+        //显示冲突项
+    showConflict () {
+      var msg = this.conflictmsg
+      this.$router.push({name:'Edit',params:{conflictmsg:msg}})
+      // let ConflictPage = this.$router.resolve({ 
+      //   name: 'Edit', 
+      //   params: {conflictmsg:msg} })
+      // window.open(ConflictPage.href, '_blank')
+    },
+    //更改审核状态
     SaveState () {
       var state = ''
       if (this.auditState == '审核完成') {
@@ -112,6 +128,7 @@ export default {
       this.$forceUpdate()
     }
   },
+  //渲染
   mounted () {
     console.log(this.$route.params)
     this.id_2 = this.$route.params.id
@@ -129,12 +146,11 @@ export default {
       data1 = JSON.parse(this.textinfo_1)
       var data = []
       data.push(data1)
+      console.log(typeof(data))
+      this.data_return_info = data
       console.log(data[0])
       var datakey = []// 存放key
       var datavalue = []// 存放value
-      var i = data[0].length
-      console.log(i)
-      console.log(typeof (data[0]))
       for (var key in data[0]) {
         datakey.push(key)
         console.log(key)
@@ -146,6 +162,10 @@ export default {
     }).catch(error => {
       console.log(error)
     })
+  },
+  beforeRouteLeave(to,from,next){
+    to.meta.keepAlive = true;
+    next();
   }
 }
 

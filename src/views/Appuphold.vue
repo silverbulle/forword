@@ -2,7 +2,7 @@
     <div>
         <!-- <button @click="show">111</button> -->
         <!-- <p>Appendixes：{{ Appendixes }}</p>  -->
-        <el-input placeholder="请输入内容" v-model="word" @keyup="searchappendix">
+        <el-input placeholder="请输入内容" v-model="word" @keyup.enter.native="searchappendix">
             <el-button slot="append" icon="el-icon-search" @click="searchappendix"></el-button>
         </el-input>
         <el-button type="text" @click="open">添加文件类型</el-button><br><br>
