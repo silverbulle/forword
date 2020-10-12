@@ -3,7 +3,10 @@
     <el-button @click="Download" style="margin-left: 5px">
       导出到本地
     </el-button>
-    <el-button @click="Back2detail" style="margin-right: 5px"> 返回 </el-button>
+    <el-button @click="Back2detail" style="margin-right: 5px">
+      上传意见书
+    </el-button>
+    
     <editor-bar
       v-model="detail"
       :isClear="isClear"
@@ -21,6 +24,7 @@ export default {
   components: { EditorBar },
   data() {
     return {
+      // id: "",
       filename: "",
       test: "",
       isClear: false,
@@ -92,8 +96,9 @@ export default {
     // var filename1 = "";
     if (localStorage.getItem("conflictmsg")) {
       ConInfo = localStorage.getItem("conflictmsg");
+      // this.id = localStorage.getItem("id");
       this.filename = localStorage.getItem("filename") + "意见书";
-      this.filename = this.filename.replace(/.docx/,"");
+      this.filename = this.filename.replace(/.docx/, "");
       // alert(this.filename);
       localStorage.clear();
     }
