@@ -1,10 +1,11 @@
 <template>
     <div>
         <div class="first">
-            <el-link v-for="item in text" :key="item" :value="item" @click="ShowRe($event)">{{item}}</el-link>
+            <!-- <el-link v-for="item in text" :key="item" :value="item" @click="ShowRe($event)" :type="(typeinfo === null?'info':'success')">{{item}}</el-link> -->
+            <el-link v-for="item in text" :key="item" :value="item" @click="ShowRe($event)" >{{item}}</el-link>
         </div>
         <div class="second">
-            <el-link  v-for="item in textarea" :key="item" :value="item" @click="ShowTips($event)" :underline="false">{{item}}</el-link>
+            <el-link  v-for="item in textarea" :key="item" :value="item" @click="ShowTips($event)" :underline="false" type="primary">{{item}}</el-link>
         </div>
         <div class="third">
             <div class="button1">
@@ -100,11 +101,21 @@ export default {
         //显示冲突项
     showConflict () {
       var msg = this.conflictmsg
-      this.$router.push({name:'Edit',params:{conflictmsg:msg}})
+      console.log(typeof(msg))
+      //this.$router.push({name:'Edit',params:{conflictmsg:msg}})
+      var {href} = this.$router.resolve({ 
+        name: 'Edit', 
+        // params: {conflictmsg:msg} 
+        })
+        localStorage.setItem("conflictmsg",msg)
+        console.log(msg)
+        window.open(href)
+
       // let ConflictPage = this.$router.resolve({ 
       //   name: 'Edit', 
       //   params: {conflictmsg:msg} })
-      // window.open(ConflictPage.href, '_blank')
+      // // window.open(ConflictPage.href, '_blank')
+      // window.open(ConflictPage.href)
     },
     //更改审核状态
     SaveState () {
@@ -165,6 +176,9 @@ export default {
   },
   beforeRouteLeave(to,from,next){
     to.meta.keepAlive = true;
+    if(this.reload){
+      to.meta.keepAlive = false;
+    }
     next();
   }
 }

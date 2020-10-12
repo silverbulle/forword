@@ -28,11 +28,25 @@ export default {
         },  
     },
     mounted(){
-      console.log(this.$route.params.conflictmsg)
-      this.detaillist = this.$route.params.conflictmsg
-      for(let i=0;i<this.detaillist.length;i++){
-        this.detail += this.detaillist[i] +"<br><br>"
+      var ConInfo = ""
+      if(localStorage.getItem("conflictmsg"))
+      {
+        ConInfo = localStorage.getItem("conflictmsg")
+        localStorage.clear()
       }
+      ConInfo = ConInfo.replace(/存在冲突,依据文件/g,'存在冲突<br><br>依据文件')
+      console.log(ConInfo)
+      console.log(typeof(ConInfo))
+      this.detail = ConInfo
+      // console.log(this.$route.params.conflictmsg)
+      // this.detaillist = this.$route.params.conflictmsg
+      // console.log(ConInfo)
+      // console.log(typeof(this.detaillist))
+      // console.log(this.detaillist)
+      // for(let i=0;i<ConInfo.length;i++){
+      //   ConInfo[i].replace("存在冲突,依据文件","存在冲突<br><br>依据文件")
+      //   this.detail += ConInfo[i] 
+      // }
     },
     beforeRouteEnter(to,from,next){
       if(from.name == "Detail"){
