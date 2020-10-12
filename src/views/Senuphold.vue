@@ -1,6 +1,6 @@
 <template>
     <div>
-        <el-input placeholder="请输入内容" v-model="word" @keyup="searchsensitive">
+        <el-input placeholder="请输入内容" v-model="word" @keyup.enter.native="searchsensitive">
             <el-button slot="append" icon="el-icon-search" @click="searchsensitive"></el-button>
         </el-input>
         <el-button type="text" @click="open">添加敏感词</el-button><br><br>

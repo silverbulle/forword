@@ -33,21 +33,48 @@ const routes = [
         component: About
         // component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
       },
-      { path: '/Main', name: 'Main', component: Main },
+      { path: '/Main', name: 'Main', component: Main ,
+        meta:{
+          keepAlive:false
+        }
+    },
+
       {
         path: '/filedetail',
         name: 'Detail',
-        component: Detail
+        component: Detail,
+        meta:{
+          keepAlive:true
+        }
+        
       },
-      { path: '/Senuphold', name: 'Senuphold', component: Senuphold },
+      { path: '/Senuphold', name: 'Senuphold', component: Senuphold,
+    meta:{
+          keepAlive:false
+        } },
 
-      { path: '/Appuphold', name: 'Appuphold', component: Appuphold },
+      { path: '/Appuphold', name: 'Appuphold', component: Appuphold,
+      meta:{
+        keepAlive:false
+      } },
 
-      { path: '/Auditing', name: 'Auditing', component: Auditing },
+      { path: '/Auditing', name: 'Auditing', component: Auditing,
+        meta:{
+          keepAlive:true
+        }  
+    },
 
-      { path: '/Detail1', name: 'Detail1', component: Detail1 },
+      { path: '/Detail1', name: 'Detail1', component: Detail1,
+        meta:{
+          keepAlive:true
+        }
+    },
 
-      { path: '/Edit', name: 'Edit', component: Edit }
+      { path: '/Edit', name: 'Edit', component: Edit ,
+        meta:{
+          keepAlive:true
+        }
+    },
 
     ]
   },
@@ -60,7 +87,14 @@ const routes = [
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes
+  routes,
+  scrollBehavior(to,from,sacedPosition){
+    if(savedPosition){
+      return savedPosition
+    }else{
+      return{x:0,y:0}
+    }
+  }
 })
 
 export default router
