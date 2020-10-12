@@ -67,7 +67,6 @@ const routes = [
 
       { path: '/Auditingnew', name: 'Auditingnew', component: Auditingnew },
 
-      { path: '/Detail1', name: 'Detail1', component: Detail1 },
       { path: '/Detail1', name: 'Detail1', component: Detail1,
         meta:{
           keepAlive:true
