@@ -65,7 +65,7 @@ export default {
       this.$api.getapp({
         params: {
           page: '1',
-          pageSize: '10',
+          pageSize: '1000',
           word: this.word
         }
       }).then(res => {

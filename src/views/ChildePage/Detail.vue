@@ -1,8 +1,20 @@
 <template>
     <div>
+      <el-popover
+        placement="bottom"
+        title="标题"
+        width="200"
+        trigger="click"
+        content="左边边框内容：灰色表示未找到相关依据的条文，蓝色表示依据找到相关依据的条纹;点击左边蓝色文本会在有变文本框显示其相关依据">
+        <el-button slot="reference" style="margin-left:17px">?</el-button>
+      </el-popover>
         <div class="first">
-            <!-- <el-link v-for="item in text" :key="item" :value="item" @click="ShowRe($event)" :type="(typeinfo === null?'info':'success')">{{item}}</el-link> -->
-            <el-link v-for="item in text" :key="item" :value="item" @click="ShowRe($event)" >{{item}}</el-link>
+          <!-- <el-link v-for="(item,index) in text1" :key="index" :value="item" @click="ShowRe($event)">
+            <text-highlight :queries="queries" :style="{'color':text1[index].RefIsExit?'blue':'gay'}">{{item.text}}</text-highlight>
+          </el-link> -->
+            <el-link @click="ShowRe($event)" v-for="(item,index) in text1" :key="index" :value="item">
+              <p :style="{'color':text1[index].RefIsExit?'blue':'gay'}">{{item.text}}</p>
+            </el-link>
         </div>
         <div class="second">
             <el-link  v-for="item in textarea" :key="item" :value="item" @click="ShowTips($event)" :underline="false" type="primary">{{item}}</el-link>
@@ -50,6 +62,10 @@ export default {
       origin_txt:"",//存放原文
       ref:[],//存放依据
       origin2ref:{},//存放原文与相关依据对应的json
+      queries: [],//需要高亮的文字
+      RefIsExit:false,
+      R:1,
+      text1:[],
     }
   },
   methods: {
@@ -77,13 +93,14 @@ export default {
       console.log(e.target.innerHTML)
       var cof_msg = e.target.innerHTML
       var org_txt = this.origin_txt
-      this.$confirm('是否将'+cof_msg+'添加为“'+ org_txt+'”冲突项', '提示', {
+      this.$confirm('是否将' + cof_msg + '添加为“'+ org_txt + '”冲突项', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning',
       }).then(() => {
         console.log(cof_msg)
-        var conctext = ("依据文件：{"+cof_msg+"}与原文：{"+org_txt+"}存在冲突" )
+        var conctext = ("文件内容：{"+org_txt+"}与依据文件内容：{"+cof_msg+"}存在冲突" )
+        //var conctext = ("依据文件：{"+cof_msg+"}与原文：{"+org_txt+"}存在冲突" )
         this.conflictmsg.push(conctext)
         console.log(this.conflictmsg)
         this.$message({
@@ -141,6 +158,25 @@ export default {
   },
   //渲染
   mounted () {
+    this.$api.getsen({
+      params: {
+        page: '1',
+        pageSize: '1000',
+        word: ''
+      }
+    }).then(res => {
+      console.log(res)
+      // this.AppendixData = res.data.data.list[0].fields.name
+      // this.Appendixes = res.data.data.list
+      // console.log(this.Sensitives)
+      for (let i = 0; i < res.data.data.total; i++) {
+        this.queries.push(res.data.data.list[i].fields.name)
+      }
+      console.log(this.queries)
+    }).catch(error => {
+      console.log(error)
+    })
+
     console.log(this.$route.params)
     this.id_2 = this.$route.params.id
 
@@ -168,7 +204,25 @@ export default {
         this.text.push(key)
         datavalue.push(data[0][key])
         // console.log(datavalue)
+        //console.log(data[0][key])
+        // console.log(data[0][key].type4)
+        // console.log(typeof(data[0][key].type4))
+        // console.log(data[0][key].type4.length)
+        // console.log(typeof(data[0][key].type4.length))
+        if(data[0][key].type4.length === 0){
+          //console.log(data[0][key].type4)
+          this.RefIsExit = false
+          this.text1.push({text:key,RefIsExit:false})
+          // console.log(this.text1)
+          // console.log(this.RefIsExit)
+        }else if(data[0][key].type4.length != 0){
+          this.RefIsExit = true
+          this.text1.push({text:key,RefIsExit:true})
+          // console.log(this.text1)
+          // console.log(this.RefIsExit)
+        }
         this.typeinfo = datavalue
+        
       }
     }).catch(error => {
       console.log(error)
@@ -215,5 +269,11 @@ export default {
 }
 .richtext{
     height:280px;
+}
+.RefExit{
+  color:red
+}
+.RefNotExit{
+  color:gray
 }
 </style>
