@@ -5,9 +5,11 @@ import router from './router'
 import './plugins/element.js'
 import vueConfig from '../vue.config'
 import api from './api'
+import TextHighlight from 'vue-text-highlight'
 
 Vue.config.productionTip = false
 Vue.prototype.$api = api
+Vue.component('text-highlight',TextHighlight)
 
 new Vue({
   router,

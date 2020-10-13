@@ -1,279 +1,279 @@
 <template>
-  <div>
-    <div class="first">
-      <!-- <el-link v-for="item in text" :key="item" :value="item" @click="ShowRe($event)" :type="(typeinfo === null?'info':'success')">{{item}}</el-link> -->
-      <el-link
-        v-for="item in text"
-        :key="item"
-        :value="item"
-        @click="ShowRe($event)"
-        >{{ item }}</el-link
-      >
+    <div>
+      <el-popover
+        placement="bottom"
+        title="标题"
+        width="200"
+        trigger="click"
+        content="左边边框内容：灰色表示未找到相关依据的条文，蓝色表示依据找到相关依据的条纹;点击左边蓝色文本会在有变文本框显示其相关依据">
+        <el-button slot="reference" style="margin-left:17px">?</el-button>
+      </el-popover>
+        <div class="first">
+          <!-- <el-link v-for="(item,index) in text1" :key="index" :value="item" @click="ShowRe($event)">
+            <text-highlight :queries="queries" :style="{'color':text1[index].RefIsExit?'blue':'gay'}">{{item.text}}</text-highlight>
+          </el-link> -->
+            <el-link @click="ShowRe($event)" v-for="(item,index) in text1" :key="index" :value="item">
+              <p :style="{'color':text1[index].RefIsExit?'blue':'gay'}">{{item.text}}</p>
+            </el-link>
+        </div>
+        <div class="second">
+            <el-link  v-for="item in textarea" :key="item" :value="item" @click="ShowTips($event)" :underline="false" type="primary">{{item}}</el-link>
+        </div>
+        <div class="third">
+            <div class="button1">
+                <el-button class="button1" @click="showConflict">
+                    {{button_msg_1}}
+                </el-button>
+            </div><br>
+            <div>
+                <el-label style="margin-left: 5px">
+                    更改审核状态：
+                </el-label>
+                <el-select v-model="auditState">
+                    <el-option v-for="item in auditStates" :key="item" :value="item"></el-option>
+                </el-select>
+            </div>
+            <div style="margin-top: 5px;margin-right:15px">
+                <el-button style="float:right;" @click="SaveState">
+                    保存
+                </el-button>
+            </div>
+        </div>
     </div>
-    <div class="second">
-      <el-link
-        v-for="item in textarea"
-        :key="item"
-        :value="item"
-        @click="ShowTips($event)"
-        :underline="false"
-        type="primary"
-        >{{ item }}</el-link
-      >
-    </div>
-    <div class="third">
-      <div class="button1">
-        <el-button class="button1" @click="showConflict">
-          {{ button_msg_1 }}
-        </el-button>
-        <el-upload
-          class="upload-demo"
-          action="http://39.105.91.30:6669/law/file/uploadReviewWord"
-          :on-preview="handlePreview"
-          :on-remove="handleRemove"
-          :before-remove="beforeRemove"
-          name="reviewWord"
-          :data="upData"
-          accept=".docx"
-          multiple
-          :limit="1"
-          :on-exceed="handleExceed"
-          :file-list="fileList"
-        >
-          <el-button size="small" type="primary">点击上传</el-button>
-        </el-upload>
-      </div>
-      <br />
-      <div>
-        <el-label style="margin-left: 5px"> 更改审核状态： </el-label>
-        <el-select v-model="auditState">
-          <el-option
-            v-for="item in auditStates"
-            :key="item"
-            :value="item"
-          ></el-option>
-        </el-select>
-      </div>
-      <div style="margin-top: 5px; margin-right: 15px">
-        <el-button style="float: right" @click="SaveState"> 保存 </el-button>
-      </div>
-    </div>
-  </div>
 </template>
 
 <script>
-import api from "../../api";
+import api from '../../api'
 export default {
-  name: "Detail",
-  data() {
+  name: 'Detail',
+  data () {
     return {
       returninfo: {},
       textarea: [],
       text: [],
       typeinfo: Object,
-      button_msg_1: "查看已添加的冲突项",
+      button_msg_1: '查看已添加的冲突项',
       conflictmsg: [],
-      auditState: "",
-      auditStates: ["审核完成", "审核未完成"],
+      auditState: '',
+      auditStates: ['审核完成', '审核未完成'],
       textinfo_1: Object,
-      textinfo_2: "", //对编辑页面传值，文件名
-      // id: "", //文件id 用于进行意见书的上传和下载
       id_2: Number,
-      data_return_info: Array,
-      origin_txt: "", //存放原文
-      ref: [], //存放依据
-      origin2ref: {}, //存放原文与相关依据对应的json
-      upData: {
-        id: "",
-      },
-    };
+      data_return_info:Array,
+      origin_txt:"",//存放原文
+      ref:[],//存放依据
+      origin2ref:{},//存放原文与相关依据对应的json
+      queries: [],//需要高亮的文字
+      RefIsExit:false,
+      R:1,
+      text1:[],
+    }
   },
-  computed: {
-    // 这里定义上传文件时携带的参数，即表单数据
-    upData: function () {
-      return {
-        id: this.upData.id,
-      };
-    },
-  },
-
   methods: {
     //显示相关依据
-    ShowRe(e) {
-      this.textarea = [];
-      console.log(typeof [this.textarea]);
-      console.log(this.data_return_info);
-      console.log(typeof this.data_return_info);
-      var data = this.data_return_info;
-      console.log(data[0]);
-      console.log(typeof data);
-      var key1 = e.target.innerHTML;
-      console.log(typeof key1);
-      console.log(key1);
-      console.log(data[0][key1]);
-      var type4info = data[0][key1].type4;
-      console.log(type4info);
-      this.textarea = type4info;
-      this.origin_txt = key1;
+    ShowRe (e) {
+      this.textarea = []
+      console.log(typeof[this.textarea])
+      console.log(this.data_return_info)
+      console.log(typeof(this.data_return_info))
+      var data = this.data_return_info
+      console.log(data[0])
+      console.log(typeof(data))
+      var key1 = e.target.innerHTML
+      console.log(typeof(key1))
+      console.log(key1)
+      console.log(data[0][key1])
+      var type4info = data[0][key1].type4
+      console.log(type4info)
+      this.textarea = type4info
+      this.origin_txt = key1
     },
 
     //提示添加冲突项
-    ShowTips(e) {
-      console.log(e.target.innerHTML);
-      var cof_msg = e.target.innerHTML;
-      var org_txt = this.origin_txt;
-      this.$confirm(
-        "是否将" + cof_msg + "添加为“" + org_txt + "”冲突项",
-        "提示",
-        {
-          confirmButtonText: "确定",
-          cancelButtonText: "取消",
-          type: "warning",
-        }
-      )
-        .then(() => {
-          console.log(cof_msg);
-          var conctext =
-            "依据文件：{" + cof_msg + "}与原文：{" + org_txt + "}存在冲突";
-          this.conflictmsg.push(conctext);
-          console.log(this.conflictmsg);
-          this.$message({
-            type: "success",
-            message: "添加成功!",
-          });
+    ShowTips (e) {
+      console.log(e.target.innerHTML)
+      var cof_msg = e.target.innerHTML
+      var org_txt = this.origin_txt
+      this.$confirm('是否将' + cof_msg + '添加为“'+ org_txt + '”冲突项', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+      }).then(() => {
+        console.log(cof_msg)
+        var conctext = ("文件内容：{"+org_txt+"}与依据文件内容：{"+cof_msg+"}存在冲突" )
+        //var conctext = ("依据文件：{"+cof_msg+"}与原文：{"+org_txt+"}存在冲突" )
+        this.conflictmsg.push(conctext)
+        console.log(this.conflictmsg)
+        this.$message({
+          type: 'success',
+          message: '添加成功!',
         })
-        .catch(() => {
-          this.$message({
-            type: "info",
-            message: "已取消添加",
-          });
-        });
-    },
-    //显示冲突项
-    showConflict() {
-      var msg = this.conflictmsg;
-      console.log(typeof msg);
-      //this.$router.push({name:'Edit',params:{conflictmsg:msg}})
-      var { href } = this.$router.resolve({
-        name: "Edit",
-        // params: {filedetail:this.textinfo_2}
-      });
-      // alert(this.textinfo_2)
-      localStorage.setItem("conflictmsg", msg);
-      localStorage.setItem("filename", this.textinfo_2);
-      // localStorage.setItem("id", this.textinfo_3);
-      console.log(msg);
-      window.open(href);
 
-      // let ConflictPage = this.$router.resolve({
-      //   name: 'Edit',
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消添加'
+        })
+      })
+    },
+        //显示冲突项
+    showConflict () {
+      var msg = this.conflictmsg
+      console.log(typeof(msg))
+      //this.$router.push({name:'Edit',params:{conflictmsg:msg}})
+      var {href} = this.$router.resolve({ 
+        name: 'Edit', 
+        // params: {conflictmsg:msg} 
+        })
+        localStorage.setItem("conflictmsg",msg)
+        console.log(msg)
+        window.open(href)
+
+      // let ConflictPage = this.$router.resolve({ 
+      //   name: 'Edit', 
       //   params: {conflictmsg:msg} })
       // // window.open(ConflictPage.href, '_blank')
       // window.open(ConflictPage.href)
     },
     //更改审核状态
-    SaveState() {
-      var state = "";
-      if (this.auditState == "审核完成") {
-        state = 1;
-      } else if (this.aiditState == "审核未完成") {
-        state = 2;
+    SaveState () {
+      var state = ''
+      if (this.auditState == '审核完成') {
+        state = 1
+      } else if (this.aiditState == '审核未完成') {
+        state = 2
       }
-      this.$api
-        .changestate({
-          id: this.id_2,
-          state: state,
-        })
-        .then((res) => {
-          console.log(res);
-          alert(res.data.message);
-        })
-        .catch((error) => {
-          consol.log(error);
-        });
+      this.$api.changestate({
+        id: this.id_2,
+        state: state
+      }).then(res => {
+        console.log(res)
+        alert(res.data.message)
+      }).catch(error => {
+        consol.log(error)
+      })
     },
-    updateView(e) {
-      this.$forceUpdate();
-    },
+    updateView (e) {
+      this.$forceUpdate()
+    }
   },
   //渲染
-  mounted() {
-    console.log(this.$route.params);
-    this.id_2 = this.$route.params.id;
+  mounted () {
+    this.$api.getsen({
+      params: {
+        page: '1',
+        pageSize: '1000',
+        word: ''
+      }
+    }).then(res => {
+      console.log(res)
+      // this.AppendixData = res.data.data.list[0].fields.name
+      // this.Appendixes = res.data.data.list
+      // console.log(this.Sensitives)
+      for (let i = 0; i < res.data.data.total; i++) {
+        this.queries.push(res.data.data.list[i].fields.name)
+      }
+      console.log(this.queries)
+    }).catch(error => {
+      console.log(error)
+    })
 
-    var id_1 = this.$route.params.id;
-    console.log(id_1);
-    this.$api
-      .selectfilebyid({
-        params: {
-          id: id_1,
-        },
-      })
-      .then((res) => {
-        // console.log(res.data.data.list[0].fields.returncontent)
-        this.textinfo_1 = res.data.data.list[0].fields.returncontent;
-        this.textinfo_2 = res.data.data.list[0].fields.name;
-        this.upData.id = res.data.data.list[0].pk;
-        // alert(this.upData.id);
-        var data1 = {};
-        data1 = JSON.parse(this.textinfo_1);
-        var data = [];
-        data.push(data1);
-        console.log(typeof data);
-        this.data_return_info = data;
-        console.log(data[0]);
-        var datakey = []; // 存放key
-        var datavalue = []; // 存放value
-        for (var key in data[0]) {
-          datakey.push(key);
-          console.log(key);
-          this.text.push(key);
-          datavalue.push(data[0][key]);
-          // console.log(datavalue)
-          this.typeinfo = datavalue;
+    console.log(this.$route.params)
+    this.id_2 = this.$route.params.id
+
+    var id_1 = this.$route.params.id
+    console.log(id_1)
+    this.$api.selectfilebyid({
+      params: {
+        id: id_1
+      }
+    }).then(res => {
+      // console.log(res.data.data.list[0].fields.returncontent)
+      this.textinfo_1 = res.data.data.list[0].fields.returncontent
+      var data1 = {}
+      data1 = JSON.parse(this.textinfo_1)
+      var data = []
+      data.push(data1)
+      console.log(typeof(data))
+      this.data_return_info = data
+      console.log(data[0])
+      var datakey = []// 存放key
+      var datavalue = []// 存放value
+      for (var key in data[0]) {
+        datakey.push(key)
+        console.log(key)
+        this.text.push(key)
+        datavalue.push(data[0][key])
+        // console.log(datavalue)
+        //console.log(data[0][key])
+        // console.log(data[0][key].type4)
+        // console.log(typeof(data[0][key].type4))
+        // console.log(data[0][key].type4.length)
+        // console.log(typeof(data[0][key].type4.length))
+        if(data[0][key].type4.length === 0){
+          //console.log(data[0][key].type4)
+          this.RefIsExit = false
+          this.text1.push({text:key,RefIsExit:false})
+          // console.log(this.text1)
+          // console.log(this.RefIsExit)
+        }else if(data[0][key].type4.length != 0){
+          this.RefIsExit = true
+          this.text1.push({text:key,RefIsExit:true})
+          // console.log(this.text1)
+          // console.log(this.RefIsExit)
         }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+        this.typeinfo = datavalue
+        
+      }
+    }).catch(error => {
+      console.log(error)
+    })
   },
-  beforeRouteLeave(to, from, next) {
+  beforeRouteLeave(to,from,next){
     to.meta.keepAlive = true;
-    if (this.reload) {
+    if(this.reload){
       to.meta.keepAlive = false;
     }
     next();
-  },
-};
+  }
+}
+
 </script>
 
 <style>
-.first {
-  width: 49%;
-  float: left;
-  border: 1px solid #3b6273;
-  height: 500px;
-  overflow: scroll;
+ .first {
+    width: 49%;
+    float:left;
+    border: 1px solid #3B6273;
+    height: 500px;
+    overflow:scroll
+
 }
 .second {
-  width: 49%;
-  float: right;
-  border: 1px solid #3b6273;
-  height: 300px;
-  overflow: scroll;
+    width: 49%;
+    float:right;
+    border: 1px solid #3B6273;
+    height: 300px;
+    overflow:scroll
 }
-.third {
-  width: 49%;
-  float: right;
-  margin-top: 17px;
-  border: 1px solid #3b6273;
-  height: 180px;
+.third{
+    width: 49%;
+    float:right;
+    margin-top: 17px;
+    border: 1px solid #3B6273;
+    height: 180px;
 }
-.button1 {
-  margin-top: 3px;
-  margin-left: 3px;
+.button1{
+    margin-top: 3px;
+    margin-left: 3px;
+
 }
-.richtext {
-  height: 280px;
+.richtext{
+    height:280px;
+}
+.RefExit{
+  color:red
+}
+.RefNotExit{
+  color:gray
 }
 </style>
