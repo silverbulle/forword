@@ -1,5 +1,11 @@
 <template >
+<div>
+    <div>
+      <h1 class="title">合法性审查辅助系统</h1>
+    </div>
+
   <div class="hello">
+
     <el-form
       :model="ruleForm"
       status-icon
@@ -27,6 +33,7 @@
         <el-button @click="resetForm(ruleForm)">重置</el-button>
       </el-form-item>
     </el-form>
+  </div>
   </div>
 </template>
 
@@ -134,7 +141,7 @@ a {
   magin: 0 auto;
   margin-top: 10%;
   position: absolute;
-  right: 900px;
+  right: 200px;
   top: 10%;
 }
 /deep/.el-form-item__label {
@@ -146,5 +153,12 @@ a {
     line-height: 40px;
     padding: 0 12px 0 0;
     box-sizing: border-box;
+}
+.title{
+  font-size:36px
+  font-family:"微软雅黑"
+  color:white 
+  margin-left:60%
+  margin-top:10%
 }
 </style>

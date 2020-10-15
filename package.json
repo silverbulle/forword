@@ -10,8 +10,12 @@
   "dependencies": {
     "axios": "^0.20.0",
     "core-js": "^3.6.5",
+    "docxtemplater": "^3.19.5",
     "element-ui": "^2.13.2",
+    "file-saver": "^2.0.2",
+    "jszip-utils": "^0.1.0",
     "lib-flexible": "^0.3.2",
+    "pizzip": "^3.0.6",
     "query-string": "^6.13.2",
     "register-service-worker": "^1.7.1",
     "vue": "^2.6.11",
