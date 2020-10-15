@@ -91,7 +91,7 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes,
-  scrollBehavior(to,from,sacedPosition){
+  scrollBehavior(to,from,savedPosition){
     if(savedPosition){
       return savedPosition
     }else{

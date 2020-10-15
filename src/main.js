@@ -6,6 +6,7 @@ import './plugins/element.js'
 import vueConfig from '../vue.config'
 import api from './api'
 import TextHighlight from 'vue-text-highlight'
+import './utils/flexible'
 
 Vue.config.productionTip = false
 Vue.prototype.$api = api

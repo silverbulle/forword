@@ -8,7 +8,8 @@
         <el-button type="text" @click="open">添加文件类型</el-button><br><br>
           <el-table
             :data="Appendixes" border style="width:100%">
-            <el-table-column prop="pk" label="编号" width="180"></el-table-column>
+            <el-table-column type="index" width="80"></el-table-column>
+            <!-- <el-table-column prop="pk" label="编号" width="180"></el-table-column> -->
             <el-table-column prop="name" label="附件类型" width="180"></el-table-column>
             <el-table-column
                 label="操作" width="140">

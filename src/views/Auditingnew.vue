@@ -1,145 +1,86 @@
 <template>
   <div>
-    <el-form ref="form" label-width="100px">
-      <el-form-item label="送审文件">
+    <el-form ref="form" label-width="100px" style="margin-top: 15px">
+      <el-form-item label="送审文件" :rules="[ { required: true, message: '描述不能为空', trigger: 'change' }, ]" >
         <el-select v-model="mainfiletype">
-          <el-option
-            v-for="i in appendix"
-            :key="i"
-            :label="i"
-            :value="i"
-          ></el-option>
+          <el-option v-for="i in appendix" :key="i" :label="i" :value="i" ></el-option>
         </el-select>
 
-        <el-upload
-          class="upload-demo"
-          ref="upload"
-          name="mainfile"
-          action="https://jsonplaceholder.typicode.com/posts/"
-          limit="1"
-          accept=".docx"
-          :on-preview="handlePreview"
-          :on-remove="handleRemove"
-          :file-list="fileList"
-          :auto-upload="false"
+        <el-upload class="upload-demo" ref="upload" name="mainfile" action="https://jsonplaceholder.typicode.com/posts/" limit="1"
+          accept=".docx" :on-preview="handlePreview" :on-remove="handleRemove" :file-list="fileList" :auto-upload="false"
           :on-change="mainfilehandleChange"
         >
-          <el-button slot="trigger" size="small" type="primary"
-            >选取送审文件</el-button
-          >
+          <el-button slot="trigger" size="small" type="primary" >选取送审文件</el-button >
           <div slot="tip" class="el-upload__tip">
             只能上传word文件(后缀名为.docx)
           </div>
         </el-upload>
       </el-form-item>
-    </el-form>
 
-    <!--  -->
+      <!--  -->
 
-    <el-form
-      :model="formData3"
-      :inline="true"
-      ref="formData3"
-      label-width="65px"
-      size="medium"
-    >
-      <el-row
-        v-for="(item, index) in formData3.appendix"
-        :key="index"
-        style="border-bottom: 1px solid #f0f0f0; padding: 10px"
-      >
-        <el-form-item
-          label="参数名"
+      <el-form :model="formData3" :inline="true" ref="formData3" size="medium">
+        <el-row v-for="(item, index) in formData3.appendix" :key="index" style="border-bottom: 1px solid #f0f0f0; padding: 10px" >
+          <!-- <el-form-item
+          label="附件名"
           :rules="[
             { required: true, message: '参数名不能为空', trigger: 'change' },
             { max: 32, message: '不超过32个字符', trigger: 'change' },
           ]"
-        >
-          <el-input v-model="item.realName" placeholder="请输入参数名" />
-        </el-form-item>
+        > -->
+          <el-form-item label="上传附件">
+            <el-input v-model="item.realName" placeholder="选取附件后显示附件名" />
+          </el-form-item>
 
-        <el-form-item
+          <!-- <el-form-item
           label="描述"
           :prop="'appendix.' + index + '.Appendixtype'"
           :rules="[
             { required: true, message: '描述不能为空', trigger: 'change' },
-          ]"
-        >
-          <el-select
-            clearable
-            v-model="item.Appendixtype"
-            placeholder="请选择描述"
-          >
-            <el-option
-              v-for="i in appendixtype"
-              :key="i"
-              :label="i"
-              :value="i"
-            ></el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item>
-          <el-upload
-            class="upload-demo"
-            ref="upload"
-            action="https://jsonplaceholder.typicode.com/posts/"
-            limit="1"
-            :on-preview="handlePreview"
-            :file-list="fileList"
-            :auto-upload="false"
-            :on-change="
-              function onchange(file, fileList) {
-                return appendixhandleChange(file, fileList, index);
-              }
-            "
-            :on-success="
-              function onSuccess(response, file, fileList) {
-                return handleSuccess(response, file, fileList, index);
-              }
-            "
-            :on-remove="
-              function onRemove(file, fileList) {
-                return handleRemove(file, fileList, index);
-              }
-            "
-          >
-            <el-button slot="trigger" size="small" type="primary"
-              >选取相关附件</el-button
+          ]" 
+        > -->
+          <el-form-item label="选择附件类型" :prop="'appendix.' + index + '.Appendixtype'" >
+            <el-select clearable v-model="item.Appendixtype" placeholder="请选择描述" >
+              <el-option v-for="i in appendixtype" :key="i" :label="i" :value="i" ></el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item>
+            <el-upload class="upload-demo" ref="upload" action="https://jsonplaceholder.typicode.com/posts/" limit="1"
+              :on-preview="handlePreview" :file-list="fileList" :auto-upload="false"
+              :on-change="function onchange(file, fileList) {
+                  return appendixhandleChange(file, fileList, index);
+                }
+              "
+              :on-success="function onSuccess(response, file, fileList) {
+                  return handleSuccess(response, file, fileList, index);
+                }
+              "
+              :on-remove=" function onRemove(file, fileList) {
+                  return handleRemove(file, fileList, index);
+                }
+              "
             >
-            <div slot="tip" class="el-upload__tip">选择相关附件上传</div>
-          </el-upload>
-        </el-form-item>
+              <el-button slot="trigger" size="small" type="primary" >选取相关附件</el-button >
+              <el-button type="primary" size="small" @click="addRow" style="margin-left:7px" >添加其它附件</el-button>
+            </el-upload>
+          </el-form-item>
 
-        <el-button
-          type="danger"
-          v-if="formData3.appendix.length > 1"
-          size="medium"
-          @click="removeRow(index)"
-          >删除</el-button
-        >
-      </el-row>
-      <el-row>
-        <el-button type="primary" size="medium" @click="addRow"
-          >新增属性</el-button
-        >
-        <el-button type="primary" size="medium" @click="submit('formData3')"
-          >提交</el-button
-        >
-      </el-row>
-    </el-form>
-    <el-form ref="form" label-width="100px">
+          <el-button type="danger" v-if="formData3.appendix.length > 1" size="medium" @click="removeRow(index)" >删除</el-button >
+        </el-row>
+      </el-form>
+
       <el-form-item label="送审单位">
-        <el-form-item label="送审单位">
-          <el-input v-model="FormList.submissionUnit"></el-input>
-        </el-form-item>
-        <el-form-item label="部门">
-          <el-input v-model="FormList.issuerDepartment"></el-input>
-        </el-form-item>
-        <el-form-item label="送审人">
-          <el-input v-model="FormList.issuer"></el-input>
-        </el-form-item>
+        <el-input v-model="FormList.submissionUnit"></el-input>
       </el-form-item>
-      <el-form-item label="送审时间">
+      <el-form-item label="部门">
+        <el-input v-model="FormList.issuerDepartment"></el-input>
+      </el-form-item>
+      <el-form-item label="送审人">
+        <el-input v-model="FormList.issuer"></el-input>
+      </el-form-item>
+      <el-form-item label="送审时间" :rules="[
+            { required: true, message: '描述不能为空', trigger: 'change' },
+          ]" >
         <el-col :span="11">
           <el-date-picker
             type="date"
@@ -154,7 +95,7 @@
       <el-form-item label="备注">
         <el-input type="textarea" v-model="FormList.remarks"></el-input>
       </el-form-item>
-      <el-form-item>
+      <el-form-item class="submit">
         <el-button type="primary" @click="onSubmit">提交审核</el-button>
       </el-form-item>
     </el-form>
@@ -298,8 +239,8 @@ export default {
         }
         formData.append("key" + i, this.appendixfile[i]);
       }
-    //   alert("!!!!!!!!!!")
-    //   alert(JSON.stringify(this.formData));
+      //   alert("!!!!!!!!!!")
+      //   alert(JSON.stringify(this.formData));
       this.FormList.appendix = this.formData3.appendix;
       alert(JSON.stringify(this.FormList));
       //   this.FormList.push(this.formData3);
@@ -310,7 +251,7 @@ export default {
       formData.append("file", this.file);
       //   alert(this.file);
       console.log(formData);
-    //   console.log(this.uploadData);
+      //   console.log(this.uploadData);
       axios
         .post(base.baseUrl + base.AddFile, formData, {
           headers: {
@@ -373,5 +314,9 @@ export default {
 <style>
 .el-select .el-input {
   width: 110px;
+}
+
+.submit {
+  margin: 0px auto;
 }
 </style>

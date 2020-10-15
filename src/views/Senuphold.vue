@@ -8,7 +8,9 @@
         <!-- <p>Appendixes：{{ Appendixes }}</p>  -->
           <el-table
             :data="Sensitives" border style="width: 100%">
-            <el-table-column prop="pk" label="编号" width="180"></el-table-column>
+            <el-table-column type="index" width="80"></el-table-column>
+            <!-- <el-table-column v-for="(item,index) in Sensitives" :key="index" label="序号" width="180">{{index}}</el-table-column> -->
+            <!-- <el-table-column prop="pk" label="编号" width="180"></el-table-column> -->
             <el-table-column prop="name" label="敏感词" width="180"></el-table-column>
             <el-table-column
                 label="操作" width="140">

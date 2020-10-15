@@ -10,47 +10,30 @@
 
         <el-main>
           <el-table :data="tableData" border style="width: 100%">
-            <el-table-column
-              fixed
-              prop="submissiontime"
-              label="送达时间"
-              width="150"
-            >
+            <el-table-column fixed type="index" width="80"></el-table-column>
+            <el-table-column prop="submissiontime" label="送达时间" width="100" >
             </el-table-column>
-            <el-table-column prop="filename" label="送审稿名称" width="200">
+            <el-table-column fixed prop="filename" label="送审稿名称" width="300">
             </el-table-column>
-            <el-table-column prop="type" label="送审稿类型" width="200">
+            <el-table-column fixed prop="type" label="送审稿类型" width="100">
             </el-table-column>
             <el-table-column prop="submissionunit" label="送审单位" width="150">
             </el-table-column>
             <el-table-column prop="issuer" label="签发人姓名" width="150">
             </el-table-column>
-            <el-table-column
-              prop="issuerdepartment"
-              label="签发人科室"
-              width="120"
-            >
+            <el-table-column prop="issuerdepartment" label="签发人科室" width="120" >
             </el-table-column>
             <el-table-column prop="remarks" label="备注" width="120">
             </el-table-column>
-            <el-table-column prop="review" label="审查意见书" width="120">
+            <el-table-column prop="review" label="审查意见书" width="95">
             </el-table-column>
-            <el-table-column
-              prop="lastedittime"
-              label="上次修改时间"
-              width="120"
-            >
+            <el-table-column prop="lastedittime" label="上次修改时间" width="100" >
             </el-table-column>
-            <el-table-column prop="state" label="状态" width="120">
+            <el-table-column fixed prop="state" label="状态" width="95">
             </el-table-column>
             <el-table-column fixed="right" label="操作" width="100">
               <template slot-scope="scope">
-                <el-button
-                  @click="handleClick(scope.row)"
-                  type="text"
-                  size="small"
-                  >查看</el-button
-                >
+                <el-button @click="handleClick(scope.row)" type="text" size="small" >查看</el-button >
                 <el-button type="text" size="small" @click="delfile(scope.row)">删除</el-button>
               </template>
             </el-table-column>
@@ -60,12 +43,7 @@
     </el-container>
     <el-container style="direction: horizontal">
       <el-footer>
-        <el-pagination
-          background
-          layout="prev, pager, next"
-          :total="total"
-          @current-change="current_change"
-        >
+        <el-pagination background layout="prev, pager, next" :total="total" @current-change="current_change" >
         </el-pagination>
       </el-footer>
     </el-container>
@@ -135,6 +113,12 @@ export default {
             console.log(res.data.data.list)
             for (let i = 0; i < this.pageform.pageSize; i++) {
               if (res.data.data.list[i].fields != null) {
+                
+                var string = res.data.data.list[i].fields.name
+                var arr = string.split('.')
+                string = arr[0]
+                console.log(string)
+                res.data.data.list[i].fields.name = string
                 this.tableData.push(res.data.data.list[i].fields)
                 if (res.data.data.list[i].fields.state == '0') {
                   res.data.data.list[i].fields.state = '审核未完成'

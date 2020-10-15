@@ -21,11 +21,11 @@
         <el-menu-item index="Main"
           ><i class="iconfont icon-lunbotu"></i>主页面</el-menu-item
         >
-        <el-menu-item index="Auditing"
+        <el-menu-item index="Auditingnew"
           ><i class="iconfont icon-lunbotu"></i>上传文件</el-menu-item
         >
         <el-menu-item index="filedetail"
-          ><i class="iconfont icon-lunbotu"></i>文件详情查看</el-menu-item
+          ><i class="iconfont icon-lunbotu"></i>文件详情</el-menu-item
         >
         <el-menu-item index="Senuphold"
           ><i class="iconfont icon-lunbotu"></i>敏感词维护</el-menu-item
