@@ -1,4 +1,4 @@
-<template>
+<template >
   <div class="hello">
     <el-form
       :model="ruleForm"
@@ -136,5 +136,15 @@ a {
   position: absolute;
   right: 900px;
   top: 10%;
+}
+/deep/.el-form-item__label {
+    text-align: right;
+    vertical-align: middle;
+    float: left;
+    font-size: 14px;
+    color: #fff;
+    line-height: 40px;
+    padding: 0 12px 0 0;
+    box-sizing: border-box;
 }
 </style>

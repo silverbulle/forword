@@ -22,16 +22,16 @@
           ><i class="iconfont icon-lunbotu"></i>主页面</el-menu-item
         >
         <el-menu-item index="Auditingnew"
-          ><i class="iconfont icon-lunbotu"></i>上传文件</el-menu-item
+          ><i class="iconfont icon-tubiao"></i>上传文件</el-menu-item
         >
         <el-menu-item index="filedetail"
-          ><i class="iconfont icon-lunbotu"></i>文件详情</el-menu-item
+          ><i class="iconfont icon-biaoge"></i>文件详情</el-menu-item
         >
         <el-menu-item index="Senuphold"
-          ><i class="iconfont icon-lunbotu"></i>敏感词维护</el-menu-item
+          ><i class="iconfont icon-biaodan"></i>敏感词维护</el-menu-item
         >
         <el-menu-item index="Appuphold"
-          ><i class="iconfont icon-lunbotu"></i>附件类型维护</el-menu-item
+          ><i class="iconfont icon-biaodan"></i>附件类型维护</el-menu-item
         >
       </el-menu>
     </div>
@@ -66,6 +66,7 @@ export default {
   z-index: 888;
   color: rgb(238, 25, 25);
   border-radius: 0px;
+  height: 100%;
   /* background-color: #354152; */
 }
 </style>

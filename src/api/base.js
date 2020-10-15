@@ -15,7 +15,7 @@ const base = {
   AddSensitive: '/law/sensitivewords/add',
   ChangeState: '/law/file/updateState',
   FileReader: '/law/file/selectById',
-  uploadReviewWord:'/law/file/uploadReviewWord ',
+  uploadReviewWord:'/law/file/uploadReviewWord',
 }
 
 export default base
