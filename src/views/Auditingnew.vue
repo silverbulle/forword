@@ -1,162 +1,91 @@
 <template>
   <div>
-    <el-form ref="form" label-width="140px" label-position="left">
-      <el-form-item
-        label="送审文件"
-        :rules="[
-          { required: true, message: '描述不能为空', trigger: 'change' },
-        ]"
-      >
-        <el-col :span="3">
-          <el-select v-model="mainfiletype">
-            <el-option
-              v-for="i in appendix"
-              :key="i"
-              :label="i"
-              :value="i"
-            ></el-option>
-          </el-select>
-        </el-col>
-        <el-col :span="3">
-          <el-upload
-            class="upload-demo"
-            ref="upload"
-            name="mainfile"
-            action="https://jsonplaceholder.typicode.com/posts/"
-            limit="1"
-            accept=".docx"
-            :on-remove="handleRemove"
-            :file-list="fileList"
-            :auto-upload="false"
-            :on-change="mainfilehandleChange"
-          >
-            <el-button slot="trigger" size="small" type="primary"
-              >选取送审文件</el-button
-            >
-            <div slot="tip" class="el-upload__tip">
-              只能上传word文件(后缀名为.docx)
-            </div>
-          </el-upload>
-        </el-col>
+    <el-form ref="form" label-width="100px" style="margin-top: 15px">
+      
+      <el-form-item label="送审文件" :rules="[ { required: true, message: '描述不能为空', trigger: 'change' }, ]" >
+        <el-col :span="5">
+        <el-select v-model="mainfiletype">
+          <el-option v-for="i in appendix" :key="i" :label="i" :value="i" ></el-option>
+        </el-select>
+      </el-col>
+
+        <el-upload class="upload-demo" ref="upload" name="mainfile" action="https://jsonplaceholder.typicode.com/posts/" limit="1"
+          accept=".docx" :on-preview="handlePreview" :on-remove="handleRemove" :file-list="fileList" :auto-upload="false"
+          :on-change="mainfilehandleChange"
+        >
+          <el-button slot="trigger" size="small" type="primary" style="margin-left:10px">选取送审文件</el-button >
+          <div slot="tip" class="el-upload__tip">
+            只能上传word文件(后缀名为.docx)
+          </div>
+        </el-upload>
       </el-form-item>
+
 
       <!--  -->
 
       <el-form :model="formData3" :inline="true" ref="formData3" size="medium">
-        <el-row
-          v-for="(item, index) in formData3.appendix"
-          :key="index"
-          style="border-bottom: 1px solid #f0f0f0; padding: 10px"
-          type="flex"
-          justify="left"
-          gutter="1"
-        >
+        <el-row v-for="(item, index) in formData3.appendix" :key="index" style="border-bottom: 1px solid #f0f0f0; padding: 10px" >
           <!-- <el-form-item
           label="附件名"
           :rules="[
             { required: true, message: '参数名不能为空', trigger: 'change' },
             { max: 32, message: '不超过32个字符', trigger: 'change' },
           ]"
-        > --><el-col :span="6">
-            <el-form-item label="上传附件">
-
-              <el-input
-                v-model="item.realName"
-                placeholder="选取附件后显示附件名"
-              />
-            </el-form-item>
-          </el-col>
-          <el-col :span="7">
-            <el-form-item
-              label="选择附件类型"
-              :prop="'appendix.' + index + '.appendixType'"
-            >
-              <el-select
-                clearable
-                v-model="item.appendixType"
-                placeholder="请选择描述"
-              >
-                <el-option
-                  v-for="i in appendixType"
-                  :key="i"
-                  :label="i"
-                  :value="i"
-                ></el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
-            <el-col :span="8">
-          <el-form-item>
-
-              <el-upload
-                class="upload-demo"
-                ref="upload"
-                action="https://jsonplaceholder.typicode.com/posts/"
-                limit="1"
-                :file-list="fileList"
-                :auto-upload="false"
-                :on-change="
-                  function onchange(file, fileList) {
-                    return appendixhandleChange(file, fileList, index);
-                  }
-                "
-                :on-success="
-                  function onSuccess(response, file, fileList) {
-                    return handleSuccess(response, file, fileList, index);
-                  }
-                "
-                :on-remove="
-                  function onRemove(file, fileList) {
-                    return handleRemove(file, fileList, index);
-                  }
-                "
-              >
-                <el-button slot="trigger" size="small" type="primary"
-                  >选取相关附件</el-button
-                >
-                <el-button
-                  type="primary"
-                  size="small"
-                  @click="addRow"
-                  style="margin-left: 7px"
-                  >添加其它附件</el-button
-                >
-              </el-upload>
-
+        > -->
+          <el-form-item label="上传附件" style="margin-left:2%">
+            <el-input v-model="item.realName" placeholder="选取附件后显示附件名"  />
           </el-form-item>
-            </el-col>
-          <el-button
-            type="danger"
-            v-if="formData3.appendix.length > 1"
-            size="medium"
-            @click="removeRow(index)"
-            >删除</el-button
-          >
+
+          <!-- <el-form-item
+          label="描述"
+          :prop="'appendix.' + index + '.Appendixtype'"
+          :rules="[
+            { required: true, message: '描述不能为空', trigger: 'change' },
+          ]" 
+        > -->
+          <el-form-item label="选择附件类型" :prop="'appendix.' + index + '.Appendixtype'" >
+            <el-select clearable v-model="item.Appendixtype" placeholder="请选择描述" >
+              <el-option v-for="i in appendixtype" :key="i" :label="i" :value="i" ></el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item>
+            <el-upload class="upload-demo" ref="upload" action="https://jsonplaceholder.typicode.com/posts/" limit="1"
+              :on-preview="handlePreview" :file-list="fileList" :auto-upload="false"
+              :on-change="function onchange(file, fileList) {
+                  return appendixhandleChange(file, fileList, index);
+                }
+              "
+              :on-success="function onSuccess(response, file, fileList) {
+                  return handleSuccess(response, file, fileList, index);
+                }
+              "
+              :on-remove=" function onRemove(file, fileList) {
+                  return handleRemove(file, fileList, index);
+                }
+              "
+            >
+              <el-button slot="trigger" size="small" type="primary" >选取相关附件</el-button >
+              <el-button type="primary" size="small" @click="addRow" style="margin-left:12px" >添加其它附件</el-button>
+            </el-upload>
+          </el-form-item>
+
+          <el-button type="danger" v-if="formData3.appendix.length > 1" size="medium" @click="removeRow(index)" >删除</el-button >
         </el-row>
       </el-form>
 
       <el-form-item label="送审单位">
-        <el-col span="12">
-          <el-input v-model="FormList.submissionUnit"></el-input>
-        </el-col>
+        <el-input v-model="FormList.submissionUnit"></el-input>
       </el-form-item>
       <el-form-item label="部门">
-        <el-col span="12">
-          <el-input v-model="FormList.issuerDepartment"></el-input>
-        </el-col>
+        <el-input v-model="FormList.issuerDepartment"></el-input>
       </el-form-item>
       <el-form-item label="送审人">
-        <el-col span="12">
-          <el-input v-model="FormList.issuer"></el-input>
-        </el-col>
+        <el-input v-model="FormList.issuer"></el-input>
       </el-form-item>
-      <el-form-item
-        label="送审时间"
-        :rules="[
-          { required: true, message: '描述不能为空', trigger: 'change' },
-        ]"
-      >
-        <el-col :span="12">
+      <el-form-item label="送审时间" :rules="[
+            { required: true, message: '描述不能为空', trigger: 'change' },
+          ]" >
+        <el-col :span="11">
           <el-date-picker
             type="date"
             placeholder="选择日期"
@@ -168,14 +97,10 @@
         </el-col>
       </el-form-item>
       <el-form-item label="备注">
-        <el-col span="22">
-          <el-input type="textarea" v-model="FormList.remarks"></el-input>
-        </el-col>
+        <el-input type="textarea" v-model="FormList.remarks"></el-input>
       </el-form-item>
       <el-form-item class="submit">
-        <div style="text-align: center">
-          <el-button type="primary" @click="onSubmit">提交审核</el-button>
-        </div>
+        <el-button type="primary" @click="onSubmit">提交审核</el-button>
       </el-form-item>
     </el-form>
   </div>

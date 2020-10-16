@@ -2,6 +2,7 @@
   <div class="sidebar">
     <div class="header">
       <div class="header-logo"></div>
+      <div class="title"><h1>合法性审查辅助系统</h1></div>
       <div class="header-user">
         <div class="header-user-image"></div>
         <div class="header-user-name">
@@ -55,6 +56,8 @@ export default {
 .title{
   color:white;
   font-size:30px;
+  float: left;
+  margin-top: 7px;
 }
 .el-dropdown-link {
   color: white;
@@ -67,7 +70,7 @@ export default {
 .el-menu-vertical-demo{
   width: 180px;
   height: 100%;
-},
+}
 .el-submenu__title,
 .el-menu-item {
   z-index: 888;
