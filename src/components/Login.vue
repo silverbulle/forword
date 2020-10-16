@@ -89,7 +89,10 @@ export default {
             .then((res) => {
               console.log(res.data);
               if (res.data.code === 220) {
-                console.log("判断成功");
+                // console.log("判断成功");
+                var Authorization = res.data.Authorization;
+                // console.log(Authorization);
+                localStorage.setItem("Authorization", Authorization);
                 this.$router.push({ path: "/main" });
               }
             });

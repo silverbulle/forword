@@ -72,7 +72,7 @@ export default {
         pageSize: 9,
         word: '',
         type: '0,1,2',
-        state: '0,1,2,3,4'
+        state: '0,1,2,3'
       },
       id: Number
     }
@@ -105,7 +105,7 @@ export default {
           word: this.pageform.word,
           type: this.pageform.type,
           state: this.pageform.state
-        })
+        },{"Authorization": localStorage.getItem("Authorization")})
         .then((res) => {
           console.log('已取得响应数据')
           console.log(res.data)
@@ -270,7 +270,7 @@ export default {
     },
   },
   mounted: function () {
-    this.getfilelist()
+    this.getfilelist();
   }
 }
 </script>

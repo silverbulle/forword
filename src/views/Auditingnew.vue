@@ -117,6 +117,7 @@ export default {
   name: 'Auditingnew',
   data () {
     return {
+      token:'',
       appendixtypelist: [],
       mainfiletype: '',
       file: [],
@@ -256,10 +257,12 @@ export default {
       //   alert(this.file);
       console.log(formData)
       //   console.log(this.uploadData);
+
       axios
         .post(base.baseUrl + base.AddFile, formData, {
           headers: {
-            'Content-Type': 'multipart/form-data'
+            'Content-Type': 'multipart/form-data',
+            'Authorization':  localStorage.getItem("Authorization")
           }
         })
         .then((res) => {

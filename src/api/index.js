@@ -1,6 +1,7 @@
 import axios from '../utils/request'
 import base from './base'
 import qs from 'query-string'
+import { Header } from 'element-ui'
 
 const api = {
   getLogin (params) {
@@ -11,7 +12,8 @@ const api = {
     console.log(params)
     return axios.get(base.proxyUrl + base.Queryfile, {
       // params:qs.stringify(params)
-      params: params
+      params: params,
+      headers: headers
     })
   },
   getapp (params) {
