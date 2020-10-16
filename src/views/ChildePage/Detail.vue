@@ -24,6 +24,9 @@
                 <el-button class="button1" @click="showConflict">
                     {{button_msg_1}}
                 </el-button>
+                
+            <input type="file" @change="getFile($event)">
+               <button @click="submitForm($event)" >提交</button>
             </div><br>
             <div>
                 <el-label style="margin-left: 5px">
@@ -44,6 +47,8 @@
 
 <script>
 import api from '../../api'
+import base from '../../api/base'
+import axios from '../../utils/request'
 export default {
   name: 'Detail',
   data () {
@@ -67,6 +72,10 @@ export default {
       RefIsExit:false,
       R:1,
       text1:[],
+      upData: {
+        id: "",
+      },
+      file:"",
     }
   },
   methods: {
@@ -127,6 +136,7 @@ export default {
         })
         localStorage.setItem("conflictmsg",msg)
         localStorage.setItem("filename", this.textinfo_2)
+        
         console.log(msg)
         window.open(href)
 
@@ -154,6 +164,35 @@ export default {
         consol.log(error)
       })
     },
+    getFile(event) {
+            this.file = event.target.files[0];
+            console.log(this.file);
+          },
+
+    submitForm(event) {
+            event.preventDefault();
+            let formData = new FormData();
+            formData.append('id', this.upData.id);
+            // formData.append('age', this.age);
+            formData.append('file', this.file);
+ 
+            let config = {
+              headers: {
+                'Content-Type': 'multipart/form-data'
+              }
+            }
+ 
+    axios.post(base.baseUrl + base.uploadReviewWord, 
+    formData,  {headers: {
+                'Content-Type': 'multipart/form-data'
+              }
+              }).then(function (response) {
+              if (response.status === 200) {
+                alert(response.data);
+              }
+            })
+          },
+
     updateView (e) {
       this.$forceUpdate()
     }
@@ -190,8 +229,9 @@ export default {
       }
     }).then(res => {
       // console.log(res.data.data.list[0].fields.returncontent)
-      this.textinfo_1 = res.data.data.list[0].fields.returncontent
-      this.textinfo_2 =res.data.data.list[0].fields.name
+      this.textinfo_1 = res.data.data.list[0].fields.returncontent;
+      this.textinfo_2 =res.data.data.list[0].fields.name;
+      this.upData.id = res.data.data.list[0].pk;
       var data1 = {}
       data1 = JSON.parse(this.textinfo_1)
       var data = []
