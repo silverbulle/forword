@@ -21,6 +21,7 @@ const errorHandle = (status, other) => {
       break
   }
 }
+// alert("进入request")
 
 // 创建axios对象
 const instance = axios.create({
@@ -28,18 +29,26 @@ const instance = axios.create({
 })
 
 // 全局配置
-instance.defaults.baseURL = 'http://39.105.91.30:6669'
-// instance.defaults.headers.common ['Authorization'] = AUTH_TOKEN;
+// instance.defaults.baseURL = 'http://39.105.91.30:6669'
+instance.defaults.headers.common ['Authorization'] = localStorage.getItem('Authorization').replace(/Token/,"");
 instance.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
 
 // 创建请求拦截和响应拦截
 instance.interceptors.request.use(config => {
+  // config.headers['aaaaatest'] = "test111111111";
+  // config.headers['Authorization'] = localStorage.getItem('Authorization'); // 根据实际情况自行修改
+  // config.headers.Authorization = localStorage.getItem('Authorization');
+  // loadingInstance = Loading.service({       // 发起请求时加载全局loading，请求失败或有响应时会关闭
+  //   spinner: 'fa fa-spinner fa-spin fa-3x fa-fw',
+  //   text: '拼命加载中...'
+  // })
+
   if (confirm.method === 'post') {
     config.data = qs.stringify(config.data)
   }
   return config
 },
-error => Promise.reject(error)
+  error => Promise.reject(error)
 )
 
 instance.interceptors.response.use(
@@ -55,4 +64,4 @@ instance.interceptors.response.use(
   }
 )
 
-export default axios
+export default instance;

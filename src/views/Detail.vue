@@ -53,6 +53,8 @@
 <script>
 import load from '../views/Detail'
 import api from '../api'
+import base from '../api/base'
+import axios from 'axios'
 
 export default {
   name: 'Detail',
@@ -96,7 +98,7 @@ export default {
         this.FileDetail1(row.pk)
       }
     },
-    getfilelist (params) {
+    getfilelist () {
       console.log('已进入请求函数中')
       api
         .getFilelist({
@@ -105,7 +107,16 @@ export default {
           word: this.pageform.word,
           type: this.pageform.type,
           state: this.pageform.state
-        },{"Authorization": localStorage.getItem("Authorization")})
+        },{Authorization:localStorage.getItem('Authorization')})
+// axios.get(base.proxyUrl +base.Queryfile,{
+//             page: this.pageform.page,
+//           pageSize: this.pageform.pageSize,
+//           word: this.pageform.word,
+//           type: this.pageform.type,
+//           state: this.pageform.state
+// },{
+// Authorization:localStorage.getItem('Authorization')
+// })
         .then((res) => {
           console.log('已取得响应数据')
           console.log(res.data)

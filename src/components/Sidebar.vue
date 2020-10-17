@@ -47,6 +47,7 @@ export default {
   methods: {
     handleCommand (command) {
       this.$router.push('/login')
+      localStorage.setItem("Authorization","")
     }
   }
 }

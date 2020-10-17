@@ -87,7 +87,7 @@ export default {
               password: this.ruleForm.password,
             })
             .then((res) => {
-              console.log(res.data);
+              console.log(res);
               if (res.data.code === 220) {
                 // console.log("判断成功");
                 var Authorization = res.data.Authorization;

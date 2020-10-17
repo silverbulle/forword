@@ -1,29 +1,34 @@
 import axios from '../utils/request'
 import base from './base'
 import qs from 'query-string'
-import { Header } from 'element-ui'
+// import { Header } from 'element-ui'
+
+const config ={
+  headers:{
+    Authorization: localStorage.getItem('Authorization').replace(/Token /,'')
+  }
+}
 
 const api = {
   getLogin (params) {
     console.log(base.proxyUrl + base.Login + qs.stringify(params))
     return axios.post(base.proxyUrl + base.Login, qs.stringify(params))
   },
-  getFilelist (params) {
+  getFilelist (params,headers) {
     console.log(params)
     return axios.get(base.proxyUrl + base.Queryfile, {
       // params:qs.stringify(params)
-      params: params,
-      headers: headers
-    })
+      params: params
+    },headers)
   },
   getapp (params) {
     console.log(params)
-    return (axios.get(base.baseUrl + base.appselect, params))
+    return (axios.get(base.baseUrl + base.appselect, params,config))
   },
 
   getsen (params) {
     console.log(params)
-    return (axios.get(base.baseUrl + base.Sensitives, params))
+    return (axios.get(base.baseUrl + base.Sensitives, params,config))
   },
 
   getfile (params) {
