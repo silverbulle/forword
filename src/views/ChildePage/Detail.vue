@@ -27,6 +27,7 @@
                 
             <input type="file" @change="getFile($event)">
                <button @click="submitForm($event)" >提交</button>
+               <button @click="download" >下载</button>
             </div><br>
             <div>
                 <el-label style="margin-left: 5px">
@@ -174,7 +175,7 @@ export default {
             let formData = new FormData();
             formData.append('id', this.upData.id);
             // formData.append('age', this.age);
-            formData.append('file', this.file);
+            formData.append('reviewWord', this.file);
  
             let config = {
               headers: {
@@ -183,14 +184,22 @@ export default {
             }
  
     axios.post(base.baseUrl + base.uploadReviewWord, 
-    formData,  {headers: {
-                'Content-Type': 'multipart/form-data'
-              }
-              }).then(function (response) {
+    formData,  config).then(function (response) {
+                console.log(response)
               if (response.status === 200) {
-                alert(response.data);
+                alert(response.data.message);
               }
             })
+          },
+          download(){
+            axios.get(base.baseUrl + base.downloadReviewWord,this.upData.id).
+            then(function(res){
+
+              if(res.status === 200){
+                alert(res.data.message);
+              }
+            })
+            
           },
 
     updateView (e) {
