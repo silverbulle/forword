@@ -9,13 +9,13 @@
 
 <script>
 // import load from "./components/load";
-import Home from "./views/Home";
+// import Home from "./views/Home";
 
 export default {
   name: "app",
   components: {
     // load,
-    Home,
+    // Home,
     // Login,
   },
 };
