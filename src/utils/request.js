@@ -8,7 +8,7 @@ const errorHandle = (status, other) => {
       console.log('400')
       break
     case 401:
-      console.log('401')
+      alert("权限验证失败，请登陆后使用")
       break
     case 403:
       console.log('403')
