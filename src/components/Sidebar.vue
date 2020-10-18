@@ -19,9 +19,9 @@
     </div>
     <div class="meau">
       <el-menu default-active="1" class="el-menu-vertical-demo" router="true">
-        <el-menu-item index="Main"
+        <!-- <el-menu-item index="Main"
           ><i class="iconfont icon-lunbotu"></i>主页面</el-menu-item
-        >
+        > -->
         <el-menu-item index="Auditingnew"
           ><i class="iconfont icon-tubiao"></i>上传文件</el-menu-item
         >

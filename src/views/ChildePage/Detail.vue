@@ -5,8 +5,8 @@
         title="标题"
         width="200"
         trigger="click"
-        content="左边边框内容：灰色表示未找到相关依据的条文，蓝色表示依据找到相关依据的条纹;点击左边蓝色文本会在有变文本框显示其相关依据">
-        <el-button slot="reference" style="margin-left:17px">?</el-button>
+        content="左边边框内容：灰色表示未找到相关依据的条文，蓝色表示依据找到相关依据的条纹;点击左边蓝色文本会在右边文本框显示其相关依据">
+        <el-button slot="reference" size="mini" icon="el-icon-question" circle style="margin-left:20px;margin-bottom:3px"></el-button>
       </el-popover>
         <div class="first">
           <!-- <el-link v-for="(item,index) in text1" :key="index" :value="item" @click="ShowRe($event)">
@@ -296,7 +296,7 @@ export default {
     width: 49%;
     float:left;
     border: 1px solid #3B6273;
-    height: 500px;
+    height: 530px;
     overflow:scroll
 
 }
@@ -327,5 +327,11 @@ export default {
 }
 .RefNotExit{
   color:gray
+}
+.tips{
+  background-image: "../../static/images/提示.png";
+  margin-left:20px;
+  margin-bottom: 3px;
+  width: 5px;
 }
 </style>

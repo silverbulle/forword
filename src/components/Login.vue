@@ -93,7 +93,7 @@ export default {
                 var Authorization = res.data.Authorization;
                 // console.log(Authorization);
                 localStorage.setItem("Authorization", Authorization);
-                this.$router.push({ path: "/main" });
+                this.$router.push({ path: "/filedetail" });
               }
             });
         } else {
