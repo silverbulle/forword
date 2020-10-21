@@ -27,7 +27,9 @@
                 
             <input type="file" @change="getFile($event)">
                <button @click="submitForm($event)" >提交</button>
-               <button @click="download" >下载</button>
+               <ul ref="LDQZOne">
+               <button @click="download()" >下载</button>
+               </ul>
             </div><br>
             <div>
                 <el-label style="margin-left: 5px">
@@ -54,6 +56,7 @@ export default {
   name: 'Detail',
   data () {
     return {
+      elink:document.createElement('a'),
       returninfo: {},
       textarea: [],
       text: [],
@@ -192,13 +195,35 @@ export default {
             })
           },
           download(){
-            axios.get(base.baseUrl + base.downloadReviewWord,this.upData.id).
-            then(function(res){
-
-              if(res.status === 200){
-                alert(res.data.message);
+            this.$api.getReviewWord({
+              params:{
+                id:this.upData.id,
               }
-            })
+            }).then((res) => {
+        console.log(res);
+            let content = res.data;
+            const blob = new Blob([content], {type: 'application/msword'});     //重点重点，，，
+           console.log(content)
+            //application/msword类型要规定对，自己下载的是什么类型就写对应的类型
+            
+            const fileName = document;      //这个为文件名，可以自定义
+            if ('download' in this.elink) { // 非IE下载
+              this.elink.download = fileName;
+              this.elink.style.display = 'none';
+              this.elink.href = URL.createObjectURL(blob);
+              this.$refs.LDQZOne.appendChild(this.elink);
+              this.elink.click();     //触发点击事件，实现文档下载
+              URL.revokeObjectURL(this.elink.href); // 释放URL 对象
+              this.$refs.LDQZOne.removeChild(this.elink);    //下载完成，移除新建的a标签
+            } else { // IE10+下载
+              navigator.msSaveBlob(blob, fileName)
+            }
+
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+          
             
           },
 

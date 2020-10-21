@@ -16,6 +16,7 @@ const base = {
   ChangeState: '/law/file/updateState',
   FileReader: '/law/file/selectById',
   uploadReviewWord:'/law/file/uploadReviewWord',
+  getReviewWord:'/law/file/downloadReviewWord'
 }
 
 export default base

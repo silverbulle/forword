@@ -3,77 +3,82 @@ import base from './base'
 import qs from 'query-string'
 // import { Header } from 'element-ui'
 
-const config ={
-  headers:{
-    Authorization: localStorage.getItem('Authorization').replace(/Token /,'')
+const config = {
+  headers: {
+    Authorization: localStorage.getItem('Authorization').replace(/Token /, '')
   }
 }
 
 const api = {
-  getLogin (params) {
+  getLogin(params) {
     console.log(base.proxyUrl + base.Login + qs.stringify(params))
     return axios.post(base.proxyUrl + base.Login, qs.stringify(params))
   },
-  getFilelist (params,headers) {
+  getFilelist(params, headers) {
     console.log(params)
     return axios.get(base.proxyUrl + base.Queryfile, {
       // params:qs.stringify(params)
       params: params
-    },headers)
+    }, headers)
   },
-  getapp (params) {
+  getapp(params) {
     console.log(params)
-    return (axios.get(base.baseUrl + base.appselect, params,config))
+    return (axios.get(base.baseUrl + base.appselect, params))
   },
 
-  getsen (params) {
+  getsen(params) {
     console.log(params)
-    return (axios.get(base.baseUrl + base.Sensitives, params,config))
+    return (axios.get(base.baseUrl + base.Sensitives, params))
   },
 
-  getfile (params) {
+  getfile(params) {
     console.log(params)
     return (axios.get(base.baseUrl + base.FileSelect, params))
   },
 
-  delsen (params) {
+  delsen(params) {
     console.log(params)
     return (axios.post(base.baseUrl + base.DelSensitives, qs.stringify(params)))
   },
 
-  delfile (params) {
+  delfile(params) {
     console.log(params)
     return (axios.post(base.baseUrl + base.DeleFile, qs.stringify(params)))
   },
 
-  delappendix (params) {
+  delappendix(params) {
     console.log(params)
     return (axios.post(base.baseUrl + base.DelAppendix, qs.stringify(params)))
   },
 
-  addfile (params) {
+  addfile(params) {
     console.log(params)
     return (axios.post(base.baseUrl + base.AddFile, qs.stringify(params)))
   },
 
-  addappendix (params) {
+  addappendix(params) {
     console.log(params)
     return (axios.post(base.baseUrl + base.AddAppendix, qs.stringify(params)))
   },
 
-  addsensitive (params) {
+  addsensitive(params) {
     console.log(params)
     return (axios.post(base.baseUrl + base.AddSensitive, qs.stringify(params)))
   },
 
-  changestate (params) {
+  changestate(params) {
     console.log(params)
     return (axios.post(base.baseUrl + base.ChangeState, qs.stringify(params)))
   },
 
-  selectfilebyid (params) {
+  selectfilebyid(params) {
     console.log(params)
     return (axios.get(base.baseUrl + base.FileReader, params))
+  },
+
+  getReviewWord(params) {
+    console.log(params)
+    return (axios.get(base.baseUrl + base.getReviewWord, params, { responseType: 'blob', }))
   }
 }
 
