@@ -37,9 +37,24 @@ export default {
   methods: {
     DeletSen (row) {
       this.$api.delsen({
-        pk: row.pk
+        id: row.pk
       }).then(res => {
         console.log(res)
+        this.$api.getsen({
+          params: {
+            page: '1',
+            pageSize: '100',
+            word: this.word
+          }
+        }).then(res1 => {
+          console.log(res1)
+          this.Sensitives = []
+          for (let i = 0; i < res1.data.data.total; i++) {
+            this.Sensitives.push(res1.data.data.list[i].fields)
+          }
+        }).catch(error => {
+          console.log(error)
+        })
       }).catch(error => {
         console.log(error)
       })
@@ -76,7 +91,21 @@ export default {
               message: '你添加的敏感词是: ' + value
 
             })
-            window.reload()
+            this.$api.getsen({
+              params: {
+                page: '1',
+                pageSize: '100',
+                word: this.word
+              }
+            }).then(res1 => {
+              console.log(res1)
+              this.Sensitives = []
+              for (let i = 0; i < res1.data.data.total; i++) {
+                this.Sensitives.push(res1.data.data.list[i].fields)
+              }
+            }).catch(error => {
+              console.log(error)
+            })
           }
         }).catch(error => {
           this.$router.go(0)

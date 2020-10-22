@@ -10,10 +10,10 @@
 
         <el-main>
           <el-table :data="tableData" border style="width: 100%">
-            <el-table-column fixed type="index" width="80"></el-table-column>
+            <el-table-column fixed type="index" width="50"></el-table-column>
             <el-table-column prop="submissiontime" label="送达时间" width="100" >
             </el-table-column>
-            <el-table-column fixed prop="filename" label="送审稿名称" width="300">
+            <el-table-column fixed prop="filename" label="送审稿名称" width="400">
             </el-table-column>
             <el-table-column fixed prop="type" label="送审稿类型" width="100">
             </el-table-column>
@@ -89,11 +89,9 @@ export default {
     handleClick (row) {
       console.log(row)
       console.log(row.state)
-      if(row.state == "系统处理中")
-      {
-        alert("处理中的文件不可操作！")
-      }
-      else{
+      if (row.state == '系统处理中') {
+        alert('处理中的文件不可操作！')
+      } else {
         console.log(row.pk)
         this.FileDetail1(row.pk)
       }
@@ -107,16 +105,16 @@ export default {
           word: this.pageform.word,
           type: this.pageform.type,
           state: this.pageform.state
-        },{Authorization:localStorage.getItem('Authorization')})
-// axios.get(base.proxyUrl +base.Queryfile,{
-//             page: this.pageform.page,
-//           pageSize: this.pageform.pageSize,
-//           word: this.pageform.word,
-//           type: this.pageform.type,
-//           state: this.pageform.state
-// },{
-// Authorization:localStorage.getItem('Authorization')
-// })
+        }, { Authorization: localStorage.getItem('Authorization') })
+      // axios.get(base.proxyUrl +base.Queryfile,{
+      //             page: this.pageform.page,
+      //           pageSize: this.pageform.pageSize,
+      //           word: this.pageform.word,
+      //           type: this.pageform.type,
+      //           state: this.pageform.state
+      // },{
+      // Authorization:localStorage.getItem('Authorization')
+      // })
         .then((res) => {
           console.log('已取得响应数据')
           console.log(res.data)
@@ -124,7 +122,6 @@ export default {
             console.log(res.data.data.list)
             for (let i = 0; i < this.pageform.pageSize; i++) {
               if (res.data.data.list[i].fields != null) {
-                
                 var string = res.data.data.list[i].fields.name
                 var arr = string.split('.')
                 string = arr[0]
@@ -221,23 +218,21 @@ export default {
     updateView (e) {
       this.$forceUpdate()
     },
-    delfile(row){
+    delfile (row) {
       console.log(row.pk)
-      if(row.state == "系统处理中"){
-        alert("处理中的文件不可被操作！")
-      }
-      else{
+      if (row.state == '系统处理中') {
+        alert('处理中的文件不可被操作！')
+      } else {
         this.$api.delfile({
-          id:row.pk
-        }).then(res =>{
+          id: row.pk
+        }).then(res => {
           console.log(res)
-          if(res.data.code == 200){
-            alert("删除成功！")
-          }
-          else{
+          if (res.data.code == 200) {
+            alert('删除成功！')
+          } else {
             alert(res.data.message)
           }
-        }).catch(error =>{
+        }).catch(error => {
           console.log(error)
         })
       }
@@ -278,10 +273,10 @@ export default {
       }).catch(error => {
         console.log(error)
       })
-    },
+    }
   },
   mounted: function () {
-    this.getfilelist();
+    this.getfilelist()
   }
 }
 </script>

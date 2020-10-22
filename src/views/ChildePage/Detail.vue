@@ -12,24 +12,24 @@
           <!-- <el-link v-for="(item,index) in text1" :key="index" :value="item" @click="ShowRe($event)">
             <text-highlight :queries="queries" :style="{'color':text1[index].RefIsExit?'blue':'gay'}">{{item.text}}</text-highlight>
           </el-link> -->
-            <el-link @click="ShowRe($event)" v-for="(item,index) in text1" :key="index" :value="item">
+            <el-link @click="ShowRe($event)" v-for="(item,index) in text1" :key="index" :value="item" style="font-size:18px">
               <p :style="{'color':text1[index].RefIsExit?'blue':'gay'}">{{item.text}}</p>
             </el-link>
         </div>
         <div class="second">
-            <el-link  v-for="item in textarea" :key="item" :value="item" @click="ShowTips($event)" :underline="false" type="primary">{{item}}</el-link>
+            <el-link style="font-size:18px"  v-for="item in textarea" :key="item" :value="item" @click="ShowTips($event)" :underline="false" type="primary">{{item}}</el-link>
         </div>
         <div class="third">
             <div class="button1">
                 <el-button class="button1" @click="showConflict">
                     {{button_msg_1}}
                 </el-button>
-                
+
             <input type="file" @change="getFile($event)">
                <button @click="submitForm($event)" >提交</button>
                <ul ref="LDQZOne">
                <button @click="download()" >下载</button>
-               
+
         <!-- <a :href="'http://39.105.91.30:6669/law/file/downloadReviewWord?id='+ '42'">下载</a> -->
                </ul>
             </div><br>
@@ -58,7 +58,7 @@ export default {
   name: 'Detail',
   data () {
     return {
-      
+
       returninfo: {},
       textarea: [],
       text: [],
@@ -68,34 +68,34 @@ export default {
       auditState: '',
       auditStates: ['审核完成', '审核未完成'],
       textinfo_1: Object,
-      textinfo_2: "",
+      textinfo_2: '',
       id_2: Number,
-      data_return_info:Array,
-      origin_txt:"",//存放原文
-      ref:[],//存放依据
-      origin2ref:{},//存放原文与相关依据对应的json
-      queries: [],//需要高亮的文字
-      RefIsExit:false,
-      R:1,
-      text1:[],
+      data_return_info: Array,
+      origin_txt: '', // 存放原文
+      ref: [], // 存放依据
+      origin2ref: {}, // 存放原文与相关依据对应的json
+      queries: [], // 需要高亮的文字
+      RefIsExit: false,
+      R: 1,
+      text1: [],
       upData: {
-        id: "",
+        id: ''
       },
-      file:"",
+      file: ''
     }
   },
   methods: {
-    //显示相关依据
+    // 显示相关依据
     ShowRe (e) {
       this.textarea = []
-      console.log(typeof[this.textarea])
+      console.log(typeof [this.textarea])
       console.log(this.data_return_info)
-      console.log(typeof(this.data_return_info))
+      console.log(typeof (this.data_return_info))
       var data = this.data_return_info
       console.log(data[0])
-      console.log(typeof(data))
+      console.log(typeof (data))
       var key1 = e.target.innerHTML
-      console.log(typeof(key1))
+      console.log(typeof (key1))
       console.log(key1)
       console.log(data[0][key1])
       var type4info = data[0][key1].type4
@@ -104,26 +104,25 @@ export default {
       this.origin_txt = key1
     },
 
-    //提示添加冲突项
+    // 提示添加冲突项
     ShowTips (e) {
       console.log(e.target.innerHTML)
       var cof_msg = e.target.innerHTML
       var org_txt = this.origin_txt
-      this.$confirm('是否将' + cof_msg + '添加为“'+ org_txt + '”冲突项', '提示', {
+      this.$confirm('是否将' + cof_msg + '添加为“' + org_txt + '”冲突项', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
-        type: 'warning',
+        type: 'warning'
       }).then(() => {
         console.log(cof_msg)
-        var conctext = ("文件内容：{"+org_txt+"}与依据文件内容：{"+cof_msg+"}存在冲突" )
-        //var conctext = ("依据文件：{"+cof_msg+"}与原文：{"+org_txt+"}存在冲突" )
+        var conctext = ('文件内容：{' + org_txt + '}与依据文件内容：{' + cof_msg + '}存在冲突')
+        // var conctext = ("依据文件：{"+cof_msg+"}与原文：{"+org_txt+"}存在冲突" )
         this.conflictmsg.push(conctext)
         console.log(this.conflictmsg)
         this.$message({
           type: 'success',
-          message: '添加成功!',
+          message: '添加成功!'
         })
-
       }).catch(() => {
         this.$message({
           type: 'info',
@@ -131,28 +130,28 @@ export default {
         })
       })
     },
-        //显示冲突项
+    // 显示冲突项
     showConflict () {
       var msg = this.conflictmsg
-      console.log(typeof(msg))
-      //this.$router.push({name:'Edit',params:{conflictmsg:msg}})
-      var {href} = this.$router.resolve({ 
-        name: 'Edit', 
-        // params: {conflictmsg:msg} 
-        })
-        localStorage.setItem("conflictmsg",msg)
-        localStorage.setItem("filename", this.textinfo_2)
-        
-        console.log(msg)
-        window.open(href)
+      console.log(typeof (msg))
+      // this.$router.push({name:'Edit',params:{conflictmsg:msg}})
+      var { href } = this.$router.resolve({
+        name: 'Edit'
+        // params: {conflictmsg:msg}
+      })
+      localStorage.setItem('conflictmsg', msg)
+      localStorage.setItem('filename', this.textinfo_2)
 
-      // let ConflictPage = this.$router.resolve({ 
-      //   name: 'Edit', 
+      console.log(msg)
+      window.open(href)
+
+      // let ConflictPage = this.$router.resolve({
+      //   name: 'Edit',
       //   params: {conflictmsg:msg} })
       // // window.open(ConflictPage.href, '_blank')
       // window.open(ConflictPage.href)
     },
-    //更改审核状态
+    // 更改审核状态
     SaveState () {
       var state = ''
       if (this.auditState == '审核完成') {
@@ -170,96 +169,92 @@ export default {
         consol.log(error)
       })
     },
-    getFile(event) {
-            this.file = event.target.files[0];
-            console.log(this.file);
-          },
+    getFile (event) {
+      this.file = event.target.files[0]
+      console.log(this.file)
+    },
 
-    submitForm(event) {
-            event.preventDefault();
-            let formData = new FormData();
-            formData.append('id', this.upData.id);
-            // formData.append('age', this.age);
-            formData.append('reviewWord', this.file);
- 
-            let config = {
-              headers: {
-                'Content-Type': 'multipart/form-data'
-              }
-            }
- 
-    axios.post(base.baseUrl + base.uploadReviewWord, 
-    formData,  config).then(function (response) {
-                console.log(response)
-              if (response.status === 200) {
-                alert(response.data.message);
-              }
-            })
-          },
-    download(){
-        //     this.$api.getReviewWord({
-        //       params:{
-        //         id:this.upData.id,
-        //       }
-        //     }).then((res) => {
-        // console.log(res);
-        //     let content = res.data;
+    submitForm (event) {
+      event.preventDefault()
+      const formData = new FormData()
+      formData.append('id', this.upData.id)
+      // formData.append('age', this.age);
+      formData.append('reviewWord', this.file)
 
-            
-            // const blob = new Blob([content], {type: 'application/msword'});     //重点重点，，，
-          //  console.log(content)
-            //application/msword类型要规定对，自己下载的是什么类型就写对应的类型
-          
-          var oReq = new XMLHttpRequest();
-          //url参数为拿后台数据的接口
-          let that = this;
-          oReq.open("POST",base.baseUrl +base.getReviewWord + "?id=" + this.upData.id, true);
-          oReq.responseType = "blob";
-          oReq.onload = function (oEvent){
-              var content = oReq.response;
-            var elink = document.createElement('a');
-            alert(that.textinfo_2)
-                elink.download = that.textinfo_2 +".doc" ;
-                elink.style.display = 'none';
-                var blob = new Blob([content],{type: 'application/msw1ord'});
-                elink.href = URL.createObjectURL(blob);
-                document.body.appendChild(elink);
-                elink.click();
-                document.body.removeChild(elink);
-          }
+      const config = {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }
 
-          //请求头里放入用户口令，必须在.open()和.send()之间设置
-          oReq.setRequestHeader('Authorization', localStorage.getItem('Authorization'));
-          oReq.send();
+      axios.post(base.baseUrl + base.uploadReviewWord,
+        formData, config).then(function (response) {
+        console.log(response)
+        if (response.status === 200) {
+          alert(response.data.message)
+        }
+      })
+    },
+    download () {
+      //     this.$api.getReviewWord({
+      //       params:{
+      //         id:this.upData.id,
+      //       }
+      //     }).then((res) => {
+      // console.log(res);
+      //     let content = res.data;
 
+      // const blob = new Blob([content], {type: 'application/msword'});     //重点重点，，，
+      //  console.log(content)
+      // application/msword类型要规定对，自己下载的是什么类型就写对应的类型
 
-            // elink.download = name+".docx";
-            // const fileName = document;      //这个为文件名，可以自定义
-            // if ('download' in elink) { // 非IE下载
-            //   elink.download = fileName;
-            //   elink.style.display = 'none';
-            //   elink.href = URL.createObjectURL(blob);
-            //   this.$refs.LDQZOne.appendChild(elink);
-            //   elink.click();     //触发点击事件，实现文档下载
-            //   URL.revokeObjectURL(elink.href); // 释放URL 对象
-            //   $refs.LDQZOne.removeChild(elink);    //下载完成，移除新建的a标签
-            // } else { // IE10+下载
-            //   navigator.msSaveBlob(blob, fileName)
-            // }
+      var oReq = new XMLHttpRequest()
+      // url参数为拿后台数据的接口
+      const that = this
+      oReq.open('POST', base.baseUrl + base.getReviewWord + '?id=' + this.upData.id, true)
+      oReq.responseType = 'blob'
+      oReq.onload = function (oEvent) {
+        var content = oReq.response
+        var elink = document.createElement('a')
+        alert(that.textinfo_2)
+        elink.download = that.textinfo_2 + '.doc'
+        elink.style.display = 'none'
+        var blob = new Blob([content], { type: 'application/msw1ord' })
+        elink.href = URL.createObjectURL(blob)
+        document.body.appendChild(elink)
+        elink.click()
+        document.body.removeChild(elink)
+      }
+
+      // 请求头里放入用户口令，必须在.open()和.send()之间设置
+      oReq.setRequestHeader('Authorization', localStorage.getItem('Authorization'))
+      oReq.send()
+
+      // elink.download = name+".docx";
+      // const fileName = document;      //这个为文件名，可以自定义
+      // if ('download' in elink) { // 非IE下载
+      //   elink.download = fileName;
+      //   elink.style.display = 'none';
+      //   elink.href = URL.createObjectURL(blob);
+      //   this.$refs.LDQZOne.appendChild(elink);
+      //   elink.click();     //触发点击事件，实现文档下载
+      //   URL.revokeObjectURL(elink.href); // 释放URL 对象
+      //   $refs.LDQZOne.removeChild(elink);    //下载完成，移除新建的a标签
+      // } else { // IE10+下载
+      //   navigator.msSaveBlob(blob, fileName)
+      // }
 
       // })
       // .catch((error) => {
       //   console.log(error);
       // });
-          
-            
-          },
+    },
 
     updateView (e) {
       this.$forceUpdate()
     }
   },
-  //渲染
+  // 渲染
   mounted () {
     this.$api.getsen({
       params: {
@@ -291,14 +286,14 @@ export default {
       }
     }).then(res => {
       // console.log(res.data.data.list[0].fields.returncontent)
-      this.textinfo_1 = res.data.data.list[0].fields.returncontent;
-      this.textinfo_2 =res.data.data.list[0].fields.name.replace(/.docx/, "");
-      this.upData.id = res.data.data.list[0].pk;
+      this.textinfo_1 = res.data.data.list[0].fields.returncontent
+      this.textinfo_2 = res.data.data.list[0].fields.name.replace(/.docx/, '')
+      this.upData.id = res.data.data.list[0].pk
       var data1 = {}
       data1 = JSON.parse(this.textinfo_1)
       var data = []
       data.push(data1)
-      console.log(typeof(data))
+      console.log(typeof (data))
       this.data_return_info = data
       console.log(data[0])
       var datakey = []// 存放key
@@ -309,36 +304,35 @@ export default {
         this.text.push(key)
         datavalue.push(data[0][key])
         // console.log(datavalue)
-        //console.log(data[0][key])
+        // console.log(data[0][key])
         // console.log(data[0][key].type4)
         // console.log(typeof(data[0][key].type4))
         // console.log(data[0][key].type4.length)
         // console.log(typeof(data[0][key].type4.length))
-        if(data[0][key].type4.length === 0){
-          //console.log(data[0][key].type4)
+        if (data[0][key].type4.length === 0) {
+          // console.log(data[0][key].type4)
           this.RefIsExit = false
-          this.text1.push({text:key,RefIsExit:false})
+          this.text1.push({ text: key, RefIsExit: false })
           // console.log(this.text1)
           // console.log(this.RefIsExit)
-        }else if(data[0][key].type4.length != 0){
+        } else if (data[0][key].type4.length != 0) {
           this.RefIsExit = true
-          this.text1.push({text:key,RefIsExit:true})
+          this.text1.push({ text: key, RefIsExit: true })
           // console.log(this.text1)
           // console.log(this.RefIsExit)
         }
         this.typeinfo = datavalue
-        
       }
     }).catch(error => {
       console.log(error)
     })
   },
-  beforeRouteLeave(to,from,next){
-    to.meta.keepAlive = true;
-    if(this.reload){
-      to.meta.keepAlive = false;
+  beforeRouteLeave (to, from, next) {
+    to.meta.keepAlive = true
+    if (this.reload) {
+      to.meta.keepAlive = false
     }
-    next();
+    next()
   }
 }
 
@@ -349,7 +343,7 @@ export default {
     width: 49%;
     float:left;
     border: 1px solid #3B6273;
-    height: 530px;
+    height: 880px;
     overflow:scroll
 
 }
@@ -357,7 +351,7 @@ export default {
     width: 49%;
     float:right;
     border: 1px solid #3B6273;
-    height: 300px;
+    height: 650px;
     overflow:scroll
 }
 .third{
