@@ -3,9 +3,9 @@
     <el-button @click="Download" style="margin-left: 5px">
       导出到本地
     </el-button>
-    <el-button @click="Back2detail" style="margin-right: 5px">
+    <!-- <el-button @click="Back2detail" style="margin-right: 5px">
       上传意见书
-    </el-button>
+    </el-button> -->
     
     <editor-bar
       v-model="detail"
