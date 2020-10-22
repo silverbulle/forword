@@ -8,6 +8,7 @@
     </el-button> -->
     
     <editor-bar
+      class="rich_textbox"
       v-model="detail"
       :isClear="isClear"
       @change="change"
@@ -100,13 +101,18 @@ export default {
       this.filename = localStorage.getItem("filename") + "意见书";
       this.filename = this.filename.replace(/.docx/, "");
       // alert(this.filename);
-      localStorage.clear();
+      
+      ConInfo = ConInfo.replace(/存在冲突,文件内容/g, "存在冲突<br><br>文件内容");
+      this.detail = ConInfo
+      console.log(ConInfo)
+      localStorage.conflictmsg.clear();
     }
-    ConInfo = ConInfo.replace(/存在冲突,依据文件/g, "存在冲突<br><br>依据文件");
+    
     // console.log(ConInfo);
     // console.log(typeof ConInfo);
     // console.log(JSON.stringify(this.filedetail));
-    this.detail = ConInfo;
+    //this.detail = ConInfo;
+    //console.log(this.detail)
     // alert(this.filename);
     console.log(this.filename);
     // console.log(this.$route.params.conflictmsg)
@@ -129,3 +135,10 @@ export default {
   },
 };
 </script> 
+
+<style>
+.rich_textbox{
+  height: 880px;
+  font-size: 18px;
+}
+</style>
