@@ -58,6 +58,21 @@ export default {
         id: row.pk
       }).then(res => {
         console.log(res)
+        this.$api.getapp({
+          params: {
+            page: '1',
+            pageSize: '1000',
+            word: this.word
+          }
+        }).then(res1 => {
+          console.log(res1)
+          this.Appendixes = []
+          for (let i = 0; i < res1.data.data.total; i++) {
+            this.Appendixes.push(res1.data.data.list[i].fields)
+          }
+        }).catch(error => {
+          console.log(error)
+        })
       }).catch(error => {
         console.log(error)
       })
@@ -93,7 +108,21 @@ export default {
               type: 'success',
               message: '你添加的附件类型是: ' + value
             })
-            window.reload()
+            this.$api.getapp({
+              params: {
+                page: '1',
+                pageSize: '1000',
+                word: this.word
+              }
+            }).then(res => {
+              console.log(res)
+              this.Appendixes = []
+              for (let i = 0; i < res.data.data.total; i++) {
+                this.Appendixes.push(res.data.data.list[i].fields)
+              }
+            }).catch(error => {
+              console.log(error)
+            })
           }
         }).catch(error => {
           this.$router.go(0)

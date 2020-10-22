@@ -10,10 +10,10 @@
 
         <el-main>
           <el-table :data="tableData" border style="width: 100%">
-            <el-table-column fixed type="index" width="80"></el-table-column>
+            <el-table-column fixed type="index" width="50"></el-table-column>
             <el-table-column prop="submissiontime" label="送达时间" width="100" >
             </el-table-column>
-            <el-table-column fixed prop="filename" label="送审稿名称" width="300">
+            <el-table-column fixed prop="filename" label="送审稿名称" width="400">
             </el-table-column>
             <el-table-column fixed prop="type" label="送审稿类型" width="100">
             </el-table-column>

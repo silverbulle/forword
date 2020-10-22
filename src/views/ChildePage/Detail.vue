@@ -12,12 +12,12 @@
           <!-- <el-link v-for="(item,index) in text1" :key="index" :value="item" @click="ShowRe($event)">
             <text-highlight :queries="queries" :style="{'color':text1[index].RefIsExit?'blue':'gay'}">{{item.text}}</text-highlight>
           </el-link> -->
-            <el-link @click="ShowRe($event)" v-for="(item,index) in text1" :key="index" :value="item">
+            <el-link @click="ShowRe($event)" v-for="(item,index) in text1" :key="index" :value="item" style="font-size:18px">
               <p :style="{'color':text1[index].RefIsExit?'blue':'gay'}">{{item.text}}</p>
             </el-link>
         </div>
         <div class="second">
-            <el-link  v-for="item in textarea" :key="item" :value="item" @click="ShowTips($event)" :underline="false" type="primary">{{item}}</el-link>
+            <el-link style="font-size:18px"  v-for="item in textarea" :key="item" :value="item" @click="ShowTips($event)" :underline="false" type="primary">{{item}}</el-link>
         </div>
         <div class="third">
             <div class="button1">
@@ -349,7 +349,7 @@ export default {
     width: 49%;
     float:left;
     border: 1px solid #3B6273;
-    height: 530px;
+    height: 880px;
     overflow:scroll
 
 }
@@ -357,7 +357,7 @@ export default {
     width: 49%;
     float:right;
     border: 1px solid #3B6273;
-    height: 300px;
+    height: 650px;
     overflow:scroll
 }
 .third{
