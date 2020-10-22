@@ -22,7 +22,10 @@ const errorHandle = (status, other) => {
   }
 }
 // alert("进入request")
-localStorage.Authorization =""
+// if(localStorage.Authorization === null){
+  localStorage.Authorization =""
+// }
+
 // 创建axios对象
 const instance = axios.create({
   timeout: 5000 // 请求超时

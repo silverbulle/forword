@@ -406,6 +406,7 @@ export default {
     handleSuccess(response, file, fileList, index) {},
     // 删除文件
     handleRemove(file, fileList, index) {
+      this.formData3.appendix.splice(index, 1);
       console.log("remove", file, fileList, index);
       //   this.processList[index].fileList = fileList;
     },

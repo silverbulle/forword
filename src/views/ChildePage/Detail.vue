@@ -29,6 +29,8 @@
                <button @click="submitForm($event)" >提交</button>
                <ul ref="LDQZOne">
                <button @click="download()" >下载</button>
+               
+        <a :href="'http://39.105.91.30:6669/law/file/downloadReviewWord?id='+ '42'">下载</a>
                </ul>
             </div><br>
             <div>
@@ -56,7 +58,7 @@ export default {
   name: 'Detail',
   data () {
     return {
-      elink:document.createElement('a'),
+      
       returninfo: {},
       textarea: [],
       text: [],
@@ -194,7 +196,7 @@ export default {
               }
             })
           },
-          download(){
+    download(){
             this.$api.getReviewWord({
               params:{
                 id:this.upData.id,
@@ -202,22 +204,30 @@ export default {
             }).then((res) => {
         console.log(res);
             let content = res.data;
-            const blob = new Blob([content], {type: 'application/msword'});     //重点重点，，，
+            // const blob = new Blob([content], {type: 'application/msword'});     //重点重点，，，
            console.log(content)
             //application/msword类型要规定对，自己下载的是什么类型就写对应的类型
-            
-            const fileName = document;      //这个为文件名，可以自定义
-            if ('download' in this.elink) { // 非IE下载
-              this.elink.download = fileName;
-              this.elink.style.display = 'none';
-              this.elink.href = URL.createObjectURL(blob);
-              this.$refs.LDQZOne.appendChild(this.elink);
-              this.elink.click();     //触发点击事件，实现文档下载
-              URL.revokeObjectURL(this.elink.href); // 释放URL 对象
-              this.$refs.LDQZOne.removeChild(this.elink);    //下载完成，移除新建的a标签
-            } else { // IE10+下载
-              navigator.msSaveBlob(blob, fileName)
-            }
+            var elink = document.createElement('a');
+                elink.download = name+".docx";
+                elink.style.display = 'none';
+                var blob = new Blob([content],{type: 'application/msword'});
+                elink.href = URL.createObjectURL(blob);
+                document.body.appendChild(elink);
+                elink.click();
+                document.body.removeChild(elink);
+            // elink.download = name+".docx";
+            // const fileName = document;      //这个为文件名，可以自定义
+            // if ('download' in elink) { // 非IE下载
+            //   elink.download = fileName;
+            //   elink.style.display = 'none';
+            //   elink.href = URL.createObjectURL(blob);
+            //   this.$refs.LDQZOne.appendChild(elink);
+            //   elink.click();     //触发点击事件，实现文档下载
+            //   URL.revokeObjectURL(elink.href); // 释放URL 对象
+            //   $refs.LDQZOne.removeChild(elink);    //下载完成，移除新建的a标签
+            // } else { // IE10+下载
+            //   navigator.msSaveBlob(blob, fileName)
+            // }
 
       })
       .catch((error) => {
