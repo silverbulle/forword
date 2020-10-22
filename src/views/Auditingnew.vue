@@ -264,7 +264,7 @@ export default {
         // console.log(res);
         // alert(JSON.stringify(res.data.data.list));
         this.appendixtypelist = res.data.data.list;
-        console.log(this.appendixtypelist) 
+        console.log(this.appendixtypelist);
         for (let i = 0; i < res.data.data.total; i++) {
           this.appendixType.push(res.data.data.list[i].fields.name);
         }
@@ -306,8 +306,8 @@ export default {
       } else if (this.mainfiletype === "合同") {
         this.FormList.type = "2";
       }
-      alert("进入提交函数");
-        console.log(this.formData3.appendix[0].AppendixType);
+      // alert("进入提交函数");
+      console.log(this.formData3.appendix[0].AppendixType);
       for (let i = 0; i < this.formData3.appendix.length; i++) {
         this.formData3.appendix[i].appendixFileName = "key" + i;
         for (let j = 0; j < this.appendixtypelist.length; j++) {
@@ -323,6 +323,15 @@ export default {
         }
         formData.append("key" + i, this.appendixfile[i]);
       }
+      if(this.formData3.appendix[0].realName === ""){
+        this.formData3.appendix.splice(0,1)
+      }
+      console.log(
+        "this.appendixtypelist.length的值为" + this.appendixtypelist.length
+      );
+      console.log(
+        "this.formData3.appendix.length的值为" + this.formData3.appendix.length
+      );
       for (let a = 0; a < this.checkboxGroup1.length; a++) {
         for (let b = 0; b < this.appendixtypelist.length; b++) {
           if (this.checkboxGroup1[a] === this.appendixtypelist[b].fields.name) {
@@ -330,18 +339,20 @@ export default {
           }
         }
       }
-      if(this.checkboxGroup1.length != 0){
+      console.log("this.checkboxGroup1.length的值为" + this.checkboxGroup1.length)
+      console.log("this.appendixtypelist.length的值为" + this.appendixtypelist.length)
+      if (this.checkboxGroup1.length != 0) {
         for (let i = 0; i < this.checkboxGroup1.length; i++) {
-          this.FormList.needAppendix.push({"appendixType":this.checkboxGroup1[i]})          
+          this.FormList.needAppendix.push({
+            appendixType: this.checkboxGroup1[i],
+          });
         }
-
       }
-
 
       //   alert("!!!!!!!!!!")
       //   alert(JSON.stringify(this.formData));
       this.FormList.appendix = this.formData3.appendix;
-      alert(JSON.stringify(this.FormList));
+      // alert(JSON.stringify(this.FormList));
       //   this.FormList.push(this.formData3);
       //   console.log(JSON.stringify(this.formData3));
 
@@ -356,10 +367,11 @@ export default {
         .post(base.baseUrl + base.AddFile, formData, {
           headers: {
             "Content-Type": "multipart/form-data",
-            Authorization: localStorage.getItem("Authorization"),
+            // Authorization: localStorage.getItem("Authorization"),
           },
         })
         .then((res) => {
+          alert(res);
           console.log(res);
           if (res.data.code === 200) {
             alert("上传成功");
