@@ -9,7 +9,7 @@ const base = {
   DelSensitives: '/law/sensitivewords/delete',
   FileSelect: '/law/file/select',
   DeleFile: '/law/file/delete',
-  DelAppendix: '/law/appendix/delete',
+  DelAppendix: '/law/appendixtype/delete',
   AddFile: '/law/file/add',
   AddAppendix: '/law/appendixtype/add',
   AddSensitive: '/law/sensitivewords/add',
