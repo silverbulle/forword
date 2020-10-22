@@ -30,7 +30,7 @@
                <ul ref="LDQZOne">
                <button @click="download()" >下载</button>
                
-        <a :href="'http://39.105.91.30:6669/law/file/downloadReviewWord?id='+ '42'">下载</a>
+        <!-- <a :href="'http://39.105.91.30:6669/law/file/downloadReviewWord?id='+ '42'">下载</a> -->
                </ul>
             </div><br>
             <div>
@@ -197,24 +197,42 @@ export default {
             })
           },
     download(){
-            this.$api.getReviewWord({
-              params:{
-                id:this.upData.id,
-              }
-            }).then((res) => {
-        console.log(res);
-            let content = res.data;
+        //     this.$api.getReviewWord({
+        //       params:{
+        //         id:this.upData.id,
+        //       }
+        //     }).then((res) => {
+        // console.log(res);
+        //     let content = res.data;
+
+            
             // const blob = new Blob([content], {type: 'application/msword'});     //重点重点，，，
-           console.log(content)
+          //  console.log(content)
             //application/msword类型要规定对，自己下载的是什么类型就写对应的类型
+          
+          var oReq = new XMLHttpRequest();
+          //url参数为拿后台数据的接口
+          let that = this;
+          oReq.open("POST",base.baseUrl +base.getReviewWord + "?id=" + this.upData.id, true);
+          oReq.responseType = "blob";
+          oReq.onload = function (oEvent){
+              var content = oReq.response;
             var elink = document.createElement('a');
-                elink.download = name+".docx";
+            alert(that.textinfo_2)
+                elink.download = that.textinfo_2 +".doc" ;
                 elink.style.display = 'none';
-                var blob = new Blob([content],{type: 'application/msword'});
+                var blob = new Blob([content],{type: 'application/msw1ord'});
                 elink.href = URL.createObjectURL(blob);
                 document.body.appendChild(elink);
                 elink.click();
                 document.body.removeChild(elink);
+          }
+
+          //请求头里放入用户口令，必须在.open()和.send()之间设置
+          oReq.setRequestHeader('Authorization', localStorage.getItem('Authorization'));
+          oReq.send();
+
+
             // elink.download = name+".docx";
             // const fileName = document;      //这个为文件名，可以自定义
             // if ('download' in elink) { // 非IE下载
@@ -229,10 +247,10 @@ export default {
             //   navigator.msSaveBlob(blob, fileName)
             // }
 
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+      // })
+      // .catch((error) => {
+      //   console.log(error);
+      // });
           
             
           },
@@ -274,7 +292,7 @@ export default {
     }).then(res => {
       // console.log(res.data.data.list[0].fields.returncontent)
       this.textinfo_1 = res.data.data.list[0].fields.returncontent;
-      this.textinfo_2 =res.data.data.list[0].fields.name;
+      this.textinfo_2 =res.data.data.list[0].fields.name.replace(/.docx/, "");
       this.upData.id = res.data.data.list[0].pk;
       var data1 = {}
       data1 = JSON.parse(this.textinfo_1)
