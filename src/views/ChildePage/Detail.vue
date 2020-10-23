@@ -216,7 +216,7 @@ export default {
       oReq.onload = function (oEvent) {
         var content = oReq.response
         var elink = document.createElement('a')
-        alert(that.textinfo_2)
+        // alert(that.textinfo_2)
         elink.download = that.textinfo_2 + '.doc'
         elink.style.display = 'none'
         var blob = new Blob([content], { type: 'application/msw1ord' })

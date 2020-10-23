@@ -18,7 +18,9 @@ export default {
     // Home,
     // Login,
   },
+  
 };
+
 </script>
 
 <style>

@@ -24,7 +24,7 @@ const errorHandle = (status, other) => {
 }
 // alert("进入request")
 // if(localStorage.Authorization === null){
-localStorage.Authorization = ""
+// localStorage.Authorization = ""
 // }
 
 // 创建axios对象
@@ -34,18 +34,19 @@ const instance = axios.create({
 
 // 全局配置
 // instance.defaults.baseURL = 'http://39.105.91.30:6669'
-// instance.defaults.headers.common ['Authorization'] = localStorage.getItem('Authorization').replace(/Token/,"");
+
 // instance.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
 
 // 创建请求拦截和响应拦截
 instance.interceptors.request.use(config => {
   // config.headers['aaaaatest'] = "test111111111";
-console.log(localStorage.Authorization ===null)
-  // if (window.localStorage.Authorization === null) {
-
-  // }else{
-    config.headers['Authorization'] = localStorage.getItem('Authorization'); // 根据实际情况自行修改    
-  // }
+  // console.log ("!!!!!!!!!!!!!!!!!!!!")
+  // console.log(window.localStorage.getItem('Authorization'))
+  if (window.localStorage.getItem('Authorization') != undefined) {
+   config.headers['Authorization'] = localStorage.getItem('Authorization');
+  } else{
+    localStorage.Authorization = ""
+  }
 
   // loadingInstance = Loading.service({       // 发起请求时加载全局loading，请求失败或有响应时会关闭
   //   spinner: 'fa fa-spinner fa-spin fa-3x fa-fw',
