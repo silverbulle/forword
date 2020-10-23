@@ -374,7 +374,8 @@ export default {
           alert(res);
           console.log(res);
           if (res.data.code === 200) {
-            alert("上传成功");
+            alert("test");
+            alert(res.data.message);
             const ToDetailPage = this.$router.resolve({ name: "Filedetail" });
             window.open(ToDetailPage.href, "_blank");
           } else if (res.data.code === 500) {
