@@ -3,11 +3,11 @@ import base from './base'
 import qs from 'query-string'
 // import { Header } from 'element-ui'
 
-const config = {
-  headers: {
-    Authorization: localStorage.getItem('Authorization').replace(/Token /, '')
-  }
-}
+// const config = {
+//   headers: {
+//     Authorization: localStorage.getItem('Authorization').replace(/Token /, '')
+//   }
+// }
 
 const api = {
   getLogin(params) {

@@ -9,6 +9,7 @@ const errorHandle = (status, other) => {
       break
     case 401:
       alert("权限验证失败，请登陆后使用")
+      // this.$router.push('/login')
       break
     case 403:
       console.log('403')
@@ -23,28 +24,30 @@ const errorHandle = (status, other) => {
 }
 // alert("进入request")
 // if(localStorage.Authorization === null){
-  localStorage.Authorization =""
+// localStorage.Authorization = ""
 // }
 
 // 创建axios对象
 const instance = axios.create({
-  timeout: 5000 // 请求超时
+  timeout: 10000 // 请求超时
 })
 
 // 全局配置
 // instance.defaults.baseURL = 'http://39.105.91.30:6669'
-// instance.defaults.headers.common ['Authorization'] = localStorage.getItem('Authorization').replace(/Token/,"");
-instance.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
+
+// instance.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
 
 // 创建请求拦截和响应拦截
 instance.interceptors.request.use(config => {
   // config.headers['aaaaatest'] = "test111111111";
-  
-// if(localStorage)
-config.headers['Authorization'] = localStorage.getItem('Authorization').replace(/Token/, ""); // 根据实际情况自行修改    
+  // console.log ("!!!!!!!!!!!!!!!!!!!!")
+  // console.log(window.localStorage.getItem('Authorization'))
+  if (window.localStorage.getItem('Authorization') != undefined) {
+   config.headers['Authorization'] = localStorage.getItem('Authorization');
+  } else{
+    localStorage.Authorization = ""
+  }
 
-
-  // config.headers.Authorization = localStorage.getItem('Authorization');
   // loadingInstance = Loading.service({       // 发起请求时加载全局loading，请求失败或有响应时会关闭
   //   spinner: 'fa fa-spinner fa-spin fa-3x fa-fw',
   //   text: '拼命加载中...'
