@@ -79,6 +79,16 @@ const api = {
   getReviewWord(params) {
     console.log(params)
     return (axios.get(base.baseUrl + base.getReviewWord, params, { responseType: 'blob', }))
+  },
+
+  updateApp(params){
+    console.log(params)
+    return (axios.post(base.baseUrl + base.UpdateAppendixtype,qs.stringify(params)))
+  },
+
+  updateSen(params){
+    console.log(params)
+    return (axios.post(base.baseUrl + base.UpdateSensitives,qs.stringify(params)))
   }
 }
 

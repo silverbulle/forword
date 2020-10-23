@@ -14,9 +14,13 @@
             <el-table-column
                 label="操作" width="140">
                 <template slot-scope="scope">
+                    <el-button @click="UpdataAppendix(scope.row)" type="text" size="small">
+                    修改
+                    </el-button>
                     <el-button @click="AppendixDel(scope.row)" type="text" size="small">
                     移除
                     </el-button>
+                    
                 </template>
             </el-table-column>
         </el-table>
@@ -75,6 +79,49 @@ export default {
         })
       }).catch(error => {
         console.log(error)
+      })
+    },
+    UpdataAppendix(row){
+      console.log(row)
+      var oldstring = row.name
+      this.$prompt('将['+oldstring+']修改为:', '修改附件类型', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消'
+      }).then(({ value }) => {
+        this.$api.updateApp({
+          id:row.pk,
+          name: value
+        }).then(res => {
+          console.log(res)
+          if (res.data.code == 200) {
+            this.$message({
+              type: 'success',
+              message: '已将['+oldstring+']修改为[' + value +']'
+            })
+            this.$api.getapp({
+              params: {
+                page: '1',
+                pageSize: '1000',
+                word: this.word
+              }
+            }).then(res => {
+              console.log(res)
+              this.Appendixes = []
+              for (let i = 0; i < res.data.data.total; i++) {
+                this.Appendixes.push(res.data.data.list[i].fields)
+              }
+            }).catch(error => {
+              console.log(error)
+            })
+          }
+        }).catch(error => {
+          this.$router.go(0)
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '取消输入'
+        })
       })
     },
     searchappendix () {
