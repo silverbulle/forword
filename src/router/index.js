@@ -29,6 +29,7 @@ const router = new VueRouter({
   routes: [
     {
       path: '/',
+      nane:'login',
       redirect: '/login'
     },
     {
@@ -125,9 +126,9 @@ router.beforeEach((to, from, next) => {
       next()
     } else {
       // new一个实例出来
-      new Vue().$message.error('滚犊子！！！')
+      new Vue().$message.error('请登录获取权限后使用')
       // 不存在
-      router.push('/login')
+      router.push('login')
     }
   } else {
     // 放过去
