@@ -214,10 +214,10 @@ export default {
       //     // jsonText: this.FormList,
       //   })
       console.log(formData);
-      const BASE_URL = window.global_config.BASE_URL;
+      // const BASE_URL = window.global_config.BASE_URL;
       //如需打包，则将基础路径全局替换为BASE_URL;如需开发模式，则将所有BASE_URL替换为BASE_URL
       axios
-        .post(BASE_URL + base.AddFile, formData, {
+        .post(base.proxyUrl + base.AddFile, formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },

@@ -8,89 +8,90 @@ import qs from 'query-string'
 //     Authorization: localStorage.getItem('Authorization').replace(/Token /, '')
 //   }
 // }
-const BASE_URL = window.global_config.BASE_URL;
+// const BASE_URL = window.global_config.BASE_URL;
 //如需打包，则将基础路径全局替换为BASE_URL;如需开发模式，则将所有BASE_URL替换为BASE_URL
+
 
 const api = {
   getLogin(params) {
-    console.log(BASE_URL + base.Login + qs.stringify(params))
-    return axios.post(BASE_URL + base.Login, qs.stringify(params))
+    console.log(base.proxyUrl + base.Login + qs.stringify(params))
+    return axios.post(base.proxyUrl + base.Login, qs.stringify(params))
   },
-  getFilelist(params, headers) {
+  getFilelist(params) {
     console.log(params)
-    return axios.get(BASE_URL + base.Queryfile, {
+    return axios.get(base.proxyUrl + base.Queryfile, {
       // params:qs.stringify(params)
       params: params
-    }, headers)
+    })
   },
   getapp(params) {
     console.log(params)
-    return (axios.get(BASE_URL + base.appselect, params))
+    return (axios.get(base.proxyUrl + base.appselect, params))
   },
 
   getsen(params) {
     console.log(params)
-    return (axios.get(BASE_URL + base.Sensitives, params))
+    return (axios.get(base.proxyUrl + base.Sensitives, params))
   },
 
   getfile(params) {
     console.log(params)
-    return (axios.get(BASE_URL + base.FileSelect, params))
+    return (axios.get(base.proxyUrl + base.FileSelect, params))
   },
 
   delsen(params) {
     console.log(params)
-    return (axios.post(BASE_URL + base.DelSensitives, qs.stringify(params)))
+    return (axios.post(base.proxyUrl + base.DelSensitives, qs.stringify(params)))
   },
 
   delfile(params) {
     console.log(params)
-    return (axios.post(BASE_URL + base.DeleFile, qs.stringify(params)))
+    return (axios.post(base.proxyUrl + base.DeleFile, qs.stringify(params)))
   },
 
   delappendix(params) {
     console.log(params)
-    return (axios.post(BASE_URL + base.DelAppendix, qs.stringify(params)))
+    return (axios.post(base.proxyUrl + base.DelAppendix, qs.stringify(params)))
   },
 
   addfile(params) {
     console.log(params)
-    return (axios.post(BASE_URL + base.AddFile, qs.stringify(params)))
+    return (axios.post(base.proxyUrl + base.AddFile, qs.stringify(params)))
   },
 
   addappendix(params) {
     console.log(params)
-    return (axios.post(BASE_URL + base.AddAppendix, qs.stringify(params)))
+    return (axios.post(base.proxyUrl + base.AddAppendix, qs.stringify(params)))
   },
 
   addsensitive(params) {
     console.log(params)
-    return (axios.post(BASE_URL + base.AddSensitive, qs.stringify(params)))
+    return (axios.post(base.proxyUrl + base.AddSensitive, qs.stringify(params)))
   },
 
   changestate(params) {
     console.log(params)
-    return (axios.post(BASE_URL + base.ChangeState, qs.stringify(params)))
+    return (axios.post(base.proxyUrl + base.ChangeState, qs.stringify(params)))
   },
 
   selectfilebyid(params) {
     console.log(params)
-    return (axios.get(BASE_URL + base.FileReader, params))
+    return (axios.get(base.proxyUrl + base.FileReader, params))
   },
 
   getReviewWord(params) {
     console.log(params)
-    return (axios.get(BASE_URL + base.getReviewWord, params, { responseType: 'blob', }))
+    return (axios.get(base.proxyUrl + base.getReviewWord, params, { responseType: 'blob', }))
   },
 
   updateApp(params){
     console.log(params)
-    return (axios.post(BASE_URL + base.UpdateAppendixtype,qs.stringify(params)))
+    return (axios.post(base.proxyUrl + base.UpdateAppendixtype,qs.stringify(params)))
   },
 
   updateSen(params){
     console.log(params)
-    return (axios.post(BASE_URL + base.UpdateSensitives,qs.stringify(params)))
+    return (axios.post(base.proxyUrl + base.UpdateSensitives,qs.stringify(params)))
   }
 }
 

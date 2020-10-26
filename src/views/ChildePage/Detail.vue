@@ -188,9 +188,9 @@ export default {
           'Content-Type': 'multipart/form-data'
         }
       }
-      const BASE_URL = window.global_config.BASE_URL;
+      // const BASE_URL = window.global_config.BASE_URL;
 //如需打包，则将基础路径全局替换为BASE_URL;如需开发模式，则将所有BASE_URL替换为BASE_URL
-      axios.post(BASE_URL + base.uploadReviewWord,
+      axios.post(base.proxyUrl + base.uploadReviewWord,
         formData, config).then(function (response) {
         console.log(response)
         if (response.status === 200) {
@@ -214,7 +214,7 @@ export default {
       var oReq = new XMLHttpRequest()
       // url参数为拿后台数据的接口
       const that = this
-      oReq.open('POST', BASE_URL + base.getReviewWord + '?id=' + this.upData.id, true)
+      oReq.open('POST', base.proxyUrl + base.getReviewWord + '?id=' + this.upData.id, true)
       // console.log(oReq)
       oReq.responseType = 'blob'
       // console.log(oReq.response)

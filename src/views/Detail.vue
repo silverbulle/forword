@@ -97,7 +97,7 @@ export default {
       }
     },
     getfilelist () {
-      const BASE_URL = window.global_config.BASE_URL;
+      // const BASE_URL = window.global_config.BASE_URL;
       console.log('已进入请求函数中')
       api
         .getFilelist({
@@ -106,7 +106,7 @@ export default {
           word: this.pageform.word,
           type: this.pageform.type,
           state: this.pageform.state
-        }, { Authorization: localStorage.getItem('Authorization') })
+        })
       // axios.get(BASE_URL +base.Queryfile,{
       //             page: this.pageform.page,
       //           pageSize: this.pageform.pageSize,
@@ -279,8 +279,8 @@ export default {
       })
     }
   },
-  mounted: function () {
-    this.getfilelist()
+  mounted()  {
+    this.getfilelist();
   }
 }
 </script>

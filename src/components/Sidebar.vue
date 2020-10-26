@@ -74,10 +74,10 @@ export default {
 }
 .el-submenu__title,
 .el-menu-item {
-  z-index: 888;
-  color: rgb(238, 25, 25);
+  /* z-index: 888; */
+  /* color: rgb(238, 25, 25); */
   border-radius: 0px;
-  height: 100%;
+  /* height: 100%; */
   width: 180;
   /* background-color: #354152; */
 }
