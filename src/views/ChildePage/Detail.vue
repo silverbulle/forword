@@ -28,11 +28,11 @@
             <input type="file" @change="getFile($event)">
            
                <button @click="submitForm($event)" >提交审核意见书</button>
-                <ul ref="LDQZOne">
+                <span ref="LDQZOne">
                <button  @click="download()" >下载</button>
 
         <!-- <a :href="'http://39.105.91.30:6669/law/file/downloadReviewWord?id='+ '42'">下载</a> -->
-               </ul>
+               </span>
             </div><br>
             <div>
                 <el-label style="margin-left: 5px">
@@ -226,7 +226,7 @@ export default {
         // alert(that.textinfo_2)
         // console.log(document.body)
         // elink.download = document.name
-        elink.download = that.textinfo_2 + '.doc'
+        elink.download = that.textinfo_2 + '意见书.doc'
         elink.style.display = 'none'
         console.log (this.status)
         

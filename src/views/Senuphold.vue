@@ -15,8 +15,8 @@
             <el-table-column
                 label="操作" width="140">
                 <template slot-scope="scope">
-                    <el-button @click="updateSen(scope.row)" type="text" size="small"> 修改 </el-button>
-                    <el-button @click="DeletSen(scope.row)" type="text" size="small"> 移除 </el-button>
+                    <el-button @click="updateSen(scope.row)" type="text" size="large"> 修改 </el-button>
+                    <el-button @click="DeletSen(scope.row)" type="text" size="large"> 移除 </el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -183,3 +183,11 @@ export default {
   }
 }
 </script>
+
+
+<style >
+
+/* .el-button--small{
+  font-size: large;
+} */
+</style>

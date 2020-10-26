@@ -34,8 +34,17 @@
         <el-menu-item index="Appuphold"
           ><i class="iconfont icon-biaodan"></i>附件类型维护</el-menu-item
         >
+        <div style="font-size:12px;margin-left:20px;margin-top:575px">版权：江西师范大学</div> 
+        <div style="font-size:12px;margin-left:20px">计算机信息工程学院</div>   
       </el-menu>
     </div>
+
+
+
+           
+
+
+
   </div>
 </template>
 
@@ -76,6 +85,7 @@ export default {
 .el-menu-item {
   /* z-index: 888; */
   /* color: rgb(238, 25, 25); */
+  font-size: large;
   border-radius: 0px;
   /* height: 100%; */
   width: 180;

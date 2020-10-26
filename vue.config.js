@@ -9,6 +9,9 @@ module.exports = {
         },
         changeOrigin: true // 是否允许跨域
       }
+    },
+    overlay:{
+      warnings: false,
     }
   },
 

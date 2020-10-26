@@ -232,6 +232,8 @@ export default {
           console.log(res)
           if (res.data.code == 200) {
             alert('删除成功！')
+            this.tableData = [];
+            this.getfilelist();
           } else {
             alert(res.data.message)
           }
@@ -279,7 +281,7 @@ export default {
       })
     }
   },
-  mounted()  {
+  created()  {
     this.getfilelist();
   }
 }
@@ -303,4 +305,10 @@ export default {
 .el-footer{
   height: 80px;
 }
+.el-table{
+  font-size: 14px;
+}
+/* .el-table-column{
+  font-size: large;
+} */
 </style>
