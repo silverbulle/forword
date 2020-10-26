@@ -51,7 +51,7 @@
 </template>
 
 <script>
-import load from '../views/Detail'
+// import load from '../views/Detail'
 import api from '../api'
 import base from '../api/base'
 import axios from 'axios'
@@ -59,7 +59,7 @@ import axios from 'axios'
 export default {
   name: 'Detail',
   components: {
-    load
+    // load
   },
   data () {
     return {
@@ -97,6 +97,7 @@ export default {
       }
     },
     getfilelist () {
+      const BASE_URL = window.global_config.BASE_URL;
       console.log('已进入请求函数中')
       api
         .getFilelist({
@@ -106,7 +107,7 @@ export default {
           type: this.pageform.type,
           state: this.pageform.state
         }, { Authorization: localStorage.getItem('Authorization') })
-      // axios.get(base.proxyUrl +base.Queryfile,{
+      // axios.get(BASE_URL +base.Queryfile,{
       //             page: this.pageform.page,
       //           pageSize: this.pageform.pageSize,
       //           word: this.pageform.word,
@@ -127,7 +128,7 @@ export default {
                 string = arr[0]
                 console.log(string)
                 res.data.data.list[i].fields.name = string
-                this.tableData.push(res.data.data.list[i].fields)
+                
                 if (res.data.data.list[i].fields.state == '0') {
                   res.data.data.list[i].fields.state = '审核未完成'
                 } if (res.data.data.list[i].fields.state == '1') {
@@ -145,6 +146,7 @@ export default {
                 } if (res.data.data.list[i].fields.type == '2') {
                   res.data.data.list[i].fields.type = '合同'
                 }
+                this.tableData.push(res.data.data.list[i].fields)
               } else {
                 this.tableData.push([{ filename: '' }])
                 console.log(this.tableData)
@@ -179,7 +181,7 @@ export default {
             this.tableData = []
             for (let i = 0; i < res.data.data.list.length; i++) {
               if (res.data.data.list[i].fields != null) {
-                this.tableData.push(res.data.data.list[i].fields)
+                
                 if (res.data.data.list[i].fields.state == '0') {
                   res.data.data.list[i].fields.state = '审核未完成'
                 } if (res.data.data.list[i].fields.state == '1') {
@@ -197,6 +199,7 @@ export default {
                 } if (res.data.data.list[i].fields.type == '2') {
                   res.data.data.list[i].fields.type = '合同'
                 }
+                this.tableData.push(res.data.data.list[i].fields)
               } else {
                 this.tableData.push([{ filename: '' }])
               }
@@ -251,7 +254,7 @@ export default {
         console.log(res)
         this.tableData = []
         for (let i = 0; i < res.data.data.total; i++) {
-          this.tableData.push(res.data.data.list[i].fields)
+          
           if (res.data.data.list[i].fields.state == '0') {
             res.data.data.list[i].fields.state = '审核未完成'
           } if (res.data.data.list[i].fields.state == '1') {
@@ -269,6 +272,7 @@ export default {
           } if (res.data.data.list[i].fields.type == '2') {
             res.data.data.list[i].fields.type = '合同'
           }
+          this.tableData.push(res.data.data.list[i].fields)
         }
       }).catch(error => {
         console.log(error)

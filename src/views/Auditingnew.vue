@@ -323,8 +323,8 @@ export default {
         }
         formData.append("key" + i, this.appendixfile[i]);
       }
-      if(this.formData3.appendix[0].realName === ""){
-        this.formData3.appendix.splice(0,1)
+      if (this.formData3.appendix[0].realName === "") {
+        this.formData3.appendix.splice(0, 1);
       }
       console.log(
         "this.appendixtypelist.length的值为" + this.appendixtypelist.length
@@ -339,8 +339,12 @@ export default {
           }
         }
       }
-      console.log("this.checkboxGroup1.length的值为" + this.checkboxGroup1.length)
-      console.log("this.appendixtypelist.length的值为" + this.appendixtypelist.length)
+      console.log(
+        "this.checkboxGroup1.length的值为" + this.checkboxGroup1.length
+      );
+      console.log(
+        "this.appendixtypelist.length的值为" + this.appendixtypelist.length
+      );
       if (this.checkboxGroup1.length != 0) {
         for (let i = 0; i < this.checkboxGroup1.length; i++) {
           this.FormList.needAppendix.push({
@@ -362,9 +366,10 @@ export default {
       //   alert(this.file);
       console.log(formData);
       //   console.log(this.uploadData);
-
+      const BASE_URL = window.global_config.BASE_URL;
+      //如需打包，则将基础路径全局替换为BASE_URL;如需开发模式，则将所有BASE_URL替换为BASE_URL
       axios
-        .post(base.baseUrl + base.AddFile, formData, {
+        .post(BASE_URL + base.AddFile, formData, {
           headers: {
             "Content-Type": "multipart/form-data",
             // Authorization: localStorage.getItem("Authorization"),
