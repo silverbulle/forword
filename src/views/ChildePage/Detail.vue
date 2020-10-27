@@ -27,9 +27,9 @@
 
             <input type="file" @change="getFile($event)">
            
-               <button @click="submitForm($event)" >提交审核意见书</button>
+               <el-button @click="submitForm($event)" >提交审核意见书</el-button>
                 <span ref="LDQZOne">
-               <button  @click="download()" >下载</button>
+               <el-button  @click="download()" >下载</el-button>
 
         <!-- <a :href="'http://39.105.91.30:6669/law/file/downloadReviewWord?id='+ '42'">下载</a> -->
                </span>
@@ -41,8 +41,8 @@
                 <el-select v-model="auditState">
                     <el-option v-for="item in auditStates" :key="item" :value="item"></el-option>
                 </el-select>
-            </div>
-            <div style="margin-top: 5px;margin-right:15px">
+            <!-- </div> -->
+            <!-- <div style="margin-top: 5px;margin-right:15px"> -->
                 <el-button style="float:right;" @click="SaveState">
                     保存
                 </el-button>

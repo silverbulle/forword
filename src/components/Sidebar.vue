@@ -2,7 +2,7 @@
   <div class="sidebar">
     <div class="header">
       <div class="header-logo"></div>
-      <div class="title"><h1>合法性审查辅助系统</h1></div>
+      <div class="title"><h1>合法性辅助审查系统</h1></div>
       <div class="header-user">
         <div class="header-user-image"></div>
         <div class="header-user-name">

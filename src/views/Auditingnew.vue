@@ -376,10 +376,10 @@ export default {
           },
         })
         .then((res) => {
-          alert(res);
+          // alert(res);
           console.log(res);
           if (res.data.code === 200) {
-            alert("test");
+            // alert("test");
             alert(res.data.message);
             const ToDetailPage = this.$router.resolve({ name: "Filedetail" });
             window.open(ToDetailPage.href, "_blank");
