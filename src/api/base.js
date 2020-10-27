@@ -1,6 +1,7 @@
 const base = {
+  //开发调试版本使用proxyUrl=/api，打包生产版本需将proxuUrl改为空字符串
   baseURL: 'http://39.105.91.30:8080',
-  baseUrl: '/api',
+  // baseUrl: '/api',
   proxyUrl: '/api',
   Login: '/law/userAuth/userLogin',
   Queryfile: '/law/file/select',

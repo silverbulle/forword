@@ -34,8 +34,8 @@
         <el-menu-item index="Appuphold"
           ><i class="iconfont icon-biaodan"></i>附件类型维护</el-menu-item
         >
-        <div style="font-size:12px;margin-left:20px;margin-top:575px">版权：江西师范大学</div> 
-        <div style="font-size:12px;margin-left:20px">计算机信息工程学院</div>   
+        <div style="position:absolute;bottom:24px;font-size:8px">版权：江西师范大学</div>
+        <div style="position:absolute;bottom:8px;font-size:8px">计算机信息工程学院</div>   
       </el-menu>
     </div>
 

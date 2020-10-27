@@ -194,6 +194,8 @@ export default {
         formData, config).then(function (response) {
         console.log(response)
         if (response.status === 200) {
+          //上传成功后改变判断取值，使下载函数更够生效
+          this.url = 'get the reviewWord' 
           alert(response.data.message)
         }
       })
