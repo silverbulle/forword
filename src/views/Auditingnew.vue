@@ -381,8 +381,10 @@ export default {
           if (res.data.code === 200) {
             // alert("test");
             alert(res.data.message);
-            const ToDetailPage = this.$router.resolve({ name: "Filedetail" });
-            window.open(ToDetailPage.href, "_blank");
+            // const ToDetailPage = this.$router.resolve({ name: "Filedetail" });
+            // window.open(ToDetailPage.href, "_blank");
+            location.reload();
+            this.$router.go(0);
           } else if (res.data.code === 500) {
             alert(res.data.message);
           }
@@ -442,11 +444,15 @@ export default {
 .el-form-item label:after {
   content: "";
   display: inline-block;
-  width: 100%;
+  /* width: 100%; */
 }
 .el-form-item__label {
-  text-align: justify;
+  /* text-align: justify; */
   height: 50px;
+}
+.el-form-item__content{
+  line-height: 0%;
+  z-index: 888;
 }
 .el-form-item.is-required.el-form-item__label:before {
   content: none !important;
