@@ -182,7 +182,8 @@ export default {
       formData.append('id', this.upData.id)
       // formData.append('age', this.age);
       formData.append('reviewWord', this.file)
-
+      // let URL = this.url
+      let that = this
       const config = {
         headers: {
           'Content-Type': 'multipart/form-data'
@@ -194,8 +195,11 @@ export default {
         formData, config).then(function (response) {
         console.log(response)
         if (response.status === 200) {
+          // let that = this
           //上传成功后改变判断取值，使下载函数更够生效
-          this.url = 'get the reviewWord' 
+          console.log('aaaaaaaaaaaaaaaaaa' + that.url)
+          that.url = '11111111'
+          //this.url = 'getthereviewWord'
           alert(response.data.message)
         }
       })
