@@ -11,7 +11,7 @@ import './utils/flexible'
 Vue.config.productionTip = false
 Vue.prototype.$api = api
 Vue.component('text-highlight',TextHighlight)
-
+document.title = "合法性辅助审查系统"
 new Vue({
   router,
   render: h => h(App)
